@@ -1,0 +1,108 @@
+.navbar-logo {
+    height: 2.05em;
+    width: 10.5em;
+}
+
+.navbar-custom-container {
+    margin-top: 5em;
+}
+
+.navbar-nav li:hover>.dropdown-menu {
+    display: block;
+}
+.navbar-nav{
+    padding: 0.8em 3em;
+
+}
+.navbar {
+    padding: 0.2em 11em;
+}
+.nav-item{
+    margin: 0.4em;
+    transform: translateY(0.43em);
+    min-width: 34px;
+}
+.nav-link {
+    font-weight: bold;
+    font-size: small;
+    color: #303133 !important;
+}
+.nav-link:hover, .fa-search:hover {
+    color: #979899 !important;
+}
+.active-item {
+    color: #979899 !important;
+}
+.locale-btn {
+
+}
+.vertical-separator {
+    transform: scaleY(5.63) translateY(-0.1em);
+    color: lightgrey;
+    font-weight: lighter;
+    opacity: 0.5;
+}
+.fa-search{
+    transform: translateX(2.2em) translateY(-1em) scale(1.3);
+    color: #303133;
+}
+
+/**/
+.emotion {
+    width: 100%;
+    height: 120%;
+    margin-top:10em;
+    transform: translateY(-12.7em) scaleX(1.021);
+}
+.cropper {
+    overflow: hidden;
+    width: 100%;
+    height: 27em;
+    transform: translateX(-0.01em);
+}
+
+.middle-horizontal-navigation {
+    background-color: #b80b09;
+    color: white;
+    height: 4em;
+}
+.middle-horizontal-navigation>.container>.row {
+    padding: 1em;
+}
+.middle-horizontal-navigation>.container>.row>a {
+    transform: scale(1.3) translateX(6.3em);
+}
+
+.middle-link {
+    color: white;
+    font-weight: bold;
+}
+.middle-link:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.content {
+    height: 22em;
+    margin-top: 5em;
+}
+
+.shedule {
+    background-color: lightblue;
+}
+.slogan {
+    background-color: grey;
+    height: 20em;
+}
+.slider {
+    background-color: green;
+}
+
+#triangle {
+    width: 0;
+    height: 0;
+    border-top: 1em solid blue;
+    border-left: 0.22em solid transparent;
+    border-right: 0.22em solid transparent;
+
+}

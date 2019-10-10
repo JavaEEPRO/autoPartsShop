@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clear</title>
+    <link rel="stylesheet" th:href="@{/resources/css/clr.css}"/>
+</head>
+<body>
+<div id="string"><span class="blink_on">Бегающий БЛИК!!!</span></div>
+</body>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        setInterval(function(){
+            $('#string>span').addClass('blink_on');
+            setTimeout(function(){$('#string>span').removeClass('blink_on')},1500);
+        },6000)
+    });
+</script>
+</html>

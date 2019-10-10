@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="layoutb (template, menu)">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/img/i.png}">
+
+    <title th:text="#{label.pages.index.title}">Info Service (catalog of Services and Products in Irshava district)</title>
+
+    <!-- custom styles -->
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/customMediaResponsive.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/main.css}"/>
+
+    <!-- jQuery UI CSS -->
+    <!--link rel="stylesheet" type="text/css"
+          th:href="@{/resources/js/jquery-ui-themes-1.12.1/jquery-ui-themes-1.12.1/themes/flick/jquery-ui.css}"/-->
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-custom">
+    <a class="navbar-brand" id="string" href="#" width="250">
+        <img th:src="@{/resources/img/i.png}" width="30" height="30" class="d-inline-block align-top" alt="Info Service Logo">
+        <span>
+            <span class="blink_on" id="logo-txt" th:text="#{label.pages.logo}">Info</span>
+        </span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:text="#{label.link.home}" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:text="#{label.link.post}" href="#">Post Ad</a>
+            </li>
+
+            <li class="nav-item dropdown" id="account-span">
+
+
+                <a class=' nav-link far fa-user nav-link account-i' th:href="@{/login}"></a>
+                <a class="nav-link dropdown-toggle account-link" th:text="#{label.link.myaccount}" th:href="@{/login}" id="accountDropdown" role="button" data-toggle="dropdown" tabindex="-1" aria-haspopup="true" aria-expanded="false">
+                    My Account
+                </a>
+
+
+                <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                    <a class="dropdown-item" th:text="#{label.user.login}" th:href="@{/login}">Login</a>
+                    <a class="dropdown-item" th:text="#{label.user.register}" th:href="@{/registration.html}">Sign Up</a>
+                    <!--a class="dropdown-item" th:text="#{label.form.loginUkrainian}" th:href="@{/?lang=ua}">Ukrainian</a>
+                    <a class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{/?lang=ru}">Russian</a-->
+
+                    <!--div class="dropdown-divider"></div>
+                <a id="test" class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{/?lang=ru}">testRussian</a-->
+                    <!--a class="dropdown-item" href="#">Something else here</a-->
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" th:text="#{label.link.lang}" href="#" id="langDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Language
+                </a>
+                <div class="dropdown-menu" aria-labelledby="langDropdown">
+                    <a class="dropdown-item" th:text="#{label.form.loginEnglish}" th:href="@{/?lang=en}">English</a>
+                    <a class="dropdown-item" th:text="#{label.form.loginSpanish}" th:href="@{/?lang=es_Es}">Spanish</a>
+                    <a class="dropdown-item" th:text="#{label.form.loginUkrainian}" th:href="@{/?lang=ua}">Ukrainian</a>
+                    <a class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{/?lang=ru}">Russian</a>
+                    <!--div class="dropdown-divider"></div>
+                <a id="test" class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{/?lang=ru}">testRussian</a-->
+                    <!--a class="dropdown-item" href="#">Something else here</a-->
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" th:placeholder="#{label.search.placeholder}" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{label.search.button}">Search</button>
+        </form>
+    </div>
+</nav>
+
+
+<div class="container">
+    <h1 th:text="#{label.pages.home.message}">home</h1>
+    <h2 th:text="${message}"></h2>
+</div>
+
+
+<!--<div class="container-fluid">-->
+<!--    <div class="container xd-container">-->
+
+<!--        <div th:replace="${template}"/>-->
+
+<!--        <br/>-->
+<!--        <br/>-->
+<!--        <div id="foo" class="container">-->
+<!--            <div class="row"> &lt;!&ndash;style="visibility: hidden"&ndash;&gt;-->
+<!--                <div id="cross" title="hide footer"><img id="cr" th:src="@{/resources/images/cross/redcross.png}"/></div>-->
+
+<!--                <div>     &lt;!&ndash;class="dialog_window"  id="dialog_window_2"&ndash;&gt;-->
+<!--                    <a th:href="@{/about.html}">-->
+<!--                        <img id="footer"-->
+<!--                             src="../static/resources/images/footer.jpg" th:src="@{/resources/images/foot/footer.jpg}"-->
+<!--                             alt="developed & desighned by JavaEEPRO in the name of Lord Jesus Christ"-->
+<!--                             title="about" />-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+<!--first jQuery, then jQuery UI! -->
+<!--<script th:src="@{/resources/js/jquery-3.3.1.min.js}"></script>-->
+<!--<script th:src="@{/resources/js/jquery-ui-1.12.1/jquery-ui-1.12.1/jquery-ui.js}"></script>-->
+
+<!--<script th:src="@{/resources/js/script.js}"></script>-->
+
+<!--<script th:src="@{/resources/js/slider/jquery.slides.min.js}"></script>-->
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+
+
+
+</html>

@@ -1,0 +1,108 @@
+
+<!-- i m pindex -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="~{fragments/head :: head}"></head>
+
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-custom">-->
+<!--    <a class="navbar-brand" id="string" href="#" width="250">-->
+<!--        <img th:src="@{/resources/img/i.png}" width="30" height="30" class="d-inline-block align-top" alt="Info Service Logo">-->
+<!--        <span>-->
+<!--            <span class="blink_on" id="logo-txt" th:text="#{label.pages.logo}">Info</span>-->
+<!--        </span>-->
+<!--    </a>-->
+
+<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--    </button>-->
+
+<!--    <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--        <ul class="navbar-nav mr-auto">-->
+<!--            <li class="nav-item active">-->
+<!--                <a class="nav-link" th:text="#{label.link.home}" href="#">Home <span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" th:text="#{label.link.post}" href="#">Post Ad</a>-->
+<!--            </li>-->
+
+<!--            <li class="nav-item dropdown" id="account-span">-->
+
+
+<!--                <a class=' nav-link far fa-user nav-link account-i' th:href="@{/login}"></a>-->
+<!--                <a class="nav-link dropdown-toggle account-link" th:text="#{label.link.myaccount}" th:href="@{/login}" id="accountDropdown" role="button" data-toggle="dropdown" tabindex="-1" aria-haspopup="true" aria-expanded="false">-->
+<!--                    My Account-->
+<!--                </a>-->
+
+
+<!--                <div class="dropdown-menu" aria-labelledby="accountDropdown">-->
+<!--                    <a class="dropdown-item" th:text="#{label.user.login}" th:href="@{/login}">Login</a>-->
+<!--                    <a class="dropdown-item" th:text="#{label.user.register}" th:href="@{/registration.html}">Sign Up</a>-->
+<!--                    &lt;!&ndash;a class="dropdown-item" th:text="#{label.form.loginUkrainian}" th:href="@{/?lang=ua}">Ukrainian</a>-->
+<!--                    <a class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{/?lang=ru}">Russian</a&ndash;&gt;-->
+
+<!--                    &lt;!&ndash;div class="dropdown-divider"></div>-->
+<!--                <a id="test" class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{/?lang=ru}">testRussian</a&ndash;&gt;-->
+<!--                    &lt;!&ndash;a class="dropdown-item" href="#">Something else here</a&ndash;&gt;-->
+<!--                </div>-->
+<!--            </li>-->
+
+<!--            <li class="nav-item dropdown">-->
+<!--                <a class="nav-link dropdown-toggle" th:text="#{label.link.lang}" href="#" id="langDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    Language-->
+<!--                </a>-->
+<!--                <div class="dropdown-menu" aria-labelledby="langDropdown">-->
+<!--                    <a class="dropdown-item" th:text="#{label.form.loginEnglish}" th:href="@{/?lang=en}">English</a>-->
+<!--                    <a class="dropdown-item" th:text="#{label.form.loginSpanish}" th:href="@{/?lang=es_Es}">Spanish</a>-->
+<!--                    <a class="dropdown-item" th:text="#{label.form.loginUkrainian}" th:href="@{/?lang=ua}">Ukrainian</a>-->
+<!--                    <a class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{/?lang=ru}">Russian</a>-->
+<!--                    &lt;!&ndash;div class="dropdown-divider"></div>-->
+<!--                <a id="test" class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{/?lang=ru}">testRussian</a&ndash;&gt;-->
+<!--                    &lt;!&ndash;a class="dropdown-item" href="#">Something else here</a&ndash;&gt;-->
+<!--                </div>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--        <form class="form-inline my-2 my-lg-0">-->
+<!--            <input class="form-control mr-sm-2" type="search" th:placeholder="#{label.search.placeholder}" aria-label="Search">-->
+<!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{label.search.button}">Search</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--&lt;!&ndash;button class="main-btn start custom-btn"><span>Пример простой кнопки</span></button&ndash;&gt;-->
+<!--<div class="container">-->
+<!--    <h1 th:text="#{label.pages.home.message}">home</h1>-->
+<!--    <h2 th:text="${message}"></h2>-->
+<!--</div>-->
+
+</body>
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
+<!--<script>-->
+<!--    /*$(document).ready(function () {-->
+<!--        var serverContext = [[@{/}]];-->
+
+<!--            $("#test").on('click' , function(){-->
+<!--                window.location.href = serverContext + "?lang=ru";-->
+<!--            })-->
+
+
+<!--     */-->
+
+<!--        /*var link=window.location.href;*/-->
+
+<!--        /*setInterval(function(){-->
+<!--            $('#string>span').addClass('blink_on');-->
+<!--            setTimeout(function(){$('#string>span').removeClass('blink_on')},1500);-->
+<!--        },6000)*/-->
+<!--   // });-->
+<!--</script>-->
+
+<!--<script th:src="@{/resources/js/main.js}"></script>-->
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+
+
+</html>

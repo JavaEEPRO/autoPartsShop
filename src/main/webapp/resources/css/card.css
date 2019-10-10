@@ -1,0 +1,364 @@
+/* 2nd page*/
+
+.title-of-target {
+    margin-left: 0.5em;
+}
+
+.state-of-target {
+    margin-left: 0.5em;
+}
+
+#resetTarget {
+    margin-left: 0.2em;
+    margin-top: 0.2em;
+}
+
+#targetState {
+    margin-left: 0.2em;
+    margin-top: 0.2em;
+}
+
+#targetTitle {
+    margin-left: 0.2em;
+    margin-top: 0.2em;
+}
+
+#persistTarget {
+    transform: scale(0.81);
+    margin-top: 0.01em;
+    margin-left: 0.7em;
+}
+
+.target-container {
+    border: 1px solid black;
+    height: 21em;
+    width: 10em;
+    border-radius: 2px;
+    position: absolute;
+    margin-left: 2em;
+
+    transform: translateY(-45em);
+}
+
+.xrays-container {
+    border: 1px solid grey;
+    height: 7.5em;
+    width: 10em;
+    border-radius: 2px;
+    position: absolute;
+    margin-left: 2em;
+
+    transform: translateY(-53em);
+}
+
+.target-element-container {
+    border: 1px solid black;
+    height: 5em;
+    width: 8.5em;
+    border-radius: 2px;
+    margin-left: 0.7em;
+}
+
+
+#empty-cells {
+    transform: scaleY(0.4);
+}
+
+#data-input {
+    position: absolute;
+    z-index: 17;
+    transform: translateY(-56em) translateX(39.3em) scale(0.73) scaleY(0.9);
+}
+#examinations-table {
+    position: absolute;
+    z-index: 17;
+    transform: translateY(-57em) translateX(4em) scale(0.61);
+}
+#examinations-table td {
+    height: 0.6em;
+}
+
+
+#examination-showAffected-input {
+    transform: scale(3);
+    margin-left: 1em;
+}
+
+#teeth-table {
+    transform: translateX(40.55em) translateY(-40.2em) scale(2.375);
+    z-index: 17;
+    /*border: 1px;*/
+    position: absolute;
+}
+
+.tooth-surface {
+    border: 1px solid black;
+    border-radius: 2px;
+    position: absolute;
+}
+
+.medial-surface, .distal-surface {
+    width: 0.16em;
+    height: 0.65em;
+}
+
+.lingual-surface, .buccal-surface, .labial-surface {
+    width: 0.5em;
+    height:0.16em;
+}
+
+.medial-surface.down-left {
+    transform: translateX(0.5em);
+}
+.medial-surface.down-right {
+    transform: translateX(-0.025em);
+}
+.distal-surface.down-left {
+    transform: translateX(-0.012em);
+}
+.distal-surface.down-right {
+    transform:translateX(0.5em);
+}
+.medial-surface.upper-left {
+    transform: translateX(0.5em);
+}
+.medial-surface.upper-right {
+    transform: translateX(-0.025em);
+}
+.distal-surface.upper-left {
+    transform: translateX(-0.012em);
+}
+.distal-surface.upper-right {
+    transform:translateX(0.5em);
+}
+
+
+.lingual-surface.down-left, .lingual-surface.down-right {
+    transform: translateY(-0.1em) translateX(0.088em);
+}
+.lingual-surface.upper-right, .lingual-surface.upper-left {
+    transform: translateY(0.3em) translateX(0.088em);
+}
+.lingual-surface.upper-right:not(.frontal-group), .lingual-surface.upper-left:not(.frontal-group) {
+    transform: translateY(0.6em) translateX(0.088em);
+}
+.lingual-surface.frontal-group.down-left, .lingual-surface.frontal-group.down-right, .labial-surface.frontal-group.down-left, .labial-surface.frontal-group.down-right {
+    height: 0.44em;
+    width: 0.42em;
+}
+.lingual-surface.frontal-group.upper-left, .lingual-surface.frontal-group.upper-right, .labial-surface.frontal-group.upper-left, .labial-surface.frontal-group.upper-right {
+    height: 0.44em;
+    width: 0.42em;
+}
+.labial-surface.frontal-group.upper-left, .labial-surface.frontal-group.upper-right {
+    transform: translateX(0.09em) translateY(-0.1em);
+}
+
+.labial-surface.frontal-group.down-left, .labial-surface.frontal-group.down-right {
+    transform: translateX(0.1em) translateY(0.3em);
+}
+
+.buccal-surface.down-left, .buccal-surface.down-right {
+    transform: translateY(0.6em) translateX(0.06em);
+    background-color: green;
+    /*opacity: 0.4;*/
+}
+.buccal-surface.upper-left, .buccal-surface.upper-right {
+    transform: translateY(-0.1em) translateX(0.06em);
+    background-color: green;
+    /*opacity: 0.4;*/
+}
+
+.labial-surface.down-left, .labial-surface.down-right {
+    transform: translateY(0.5em);
+}
+.chewing-surface {
+    transform: translateY(0.025em) translateX(0.085em);
+    background-color: darkviolet;
+    height:0.6em;
+    width:0.414em;
+}
+
+.down-left {
+    background-color: red;
+}
+.down-right {
+    background-color: yellow;
+}
+
+.upper-left {
+    background-color: #15a9e7;
+}
+.upper-right {
+    background-color: #c67605;
+}
+
+.teeth-container {
+    transform: translateX(0.3em);
+}
+
+
+/*newest*/
+
+.tooth-surface:hover {
+    background-color: white;
+    border: 1px solid yellow;
+}
+
+.medial-root {}
+.roots-container:first-child {
+    transform: translateX(-0.1em);
+}
+.roots-container:last-child {
+    transform: translateX(0.1em);
+}
+
+.upper-roots-container {
+    transform: translateX(0.2em) translateY(-0.66em);
+}
+
+.medialbuccal-root.upper-left {
+    transform: translateX(0.26em) rotate(17deg);
+}
+.medialbuccal-root.upper-right {
+    transform: translateX(-0.26em) rotate(-17deg);
+}
+
+.lingual-root.upper-left{
+    transform: translateX(-0.26em) rotate(-17deg);
+}
+.lingual-root.upper-right{
+    transform: translateX(0.26em) rotate(17deg);
+}
+
+.root {
+    width: 0;
+    height: 0;
+    border-top: 0.53em solid blue;
+    border-left: 0.12em solid transparent;
+    border-right: 0.12em solid transparent;
+    position: absolute;
+    background-color: transparent;
+}
+.root:hover {
+    border-top: 0.53em solid darkblue;
+}
+.upper-root:hover {
+    border-bottom: 0.53em solid darkblue;
+}
+.upper-root {
+    width: 0;
+    height: 0;
+    border-bottom: 0.53em solid blue;
+    border-left: 0.12em solid transparent;
+    border-right: 0.12em solid transparent;
+    position: absolute;
+    background-color: transparent;
+    /*transform: translateY(-0.5em);*/
+}
+
+.medial-root.down-right, .distal-root.down-left {
+    transform: translateX(-0.1em) translateY(0.73em) rotate(17deg);
+}
+.medial-root.upper-right, .distal-root.upper-left {
+    transform: translateX(-0.1em) rotate(17deg);
+}
+.labial-root.upper-right {
+    transform: translateX(-0.26em) rotate(-17deg);
+}
+.labial-root.upper-left {
+    transform: translateX(0.26em) rotate(17deg);
+}
+
+.distal-root.down-right, .medial-root.down-left {
+    transform: translateX(0.29em) translateY(0.75em) rotate(-17deg);
+}
+.standalone-root.down-right, .standalone-root.down-left {
+    transform: translateX(0.1em) translateY(0.75em);
+
+}
+
+.root>.channels-container>.channel>.click-point {
+    width: 0.24em;
+    height: 0.24em;
+    background-color: red;
+    border-radius: 0.2em;
+    transform: translateY(0.72em) translateX(-0.08em);
+}
+.upper-root>.channels-container>.channel>.click-point {
+    width: 0.24em;
+    height: 0.24em;
+    background-color: red;
+    border-radius: 0.2em;
+    transform: translateY(-0.267em) translateX(-0.08em);
+}
+
+.channel {
+    width:0.05em;
+    height: 0.7em;
+    background-color: red;
+    position: absolute;
+    z-index: 20;
+   /* border: 1px solid white; */
+    box-shadow: 0 0 0.4px 0.4px white;
+}
+
+.channel:hover {
+    background-color: white !important;
+    box-shadow: 0 0 0.4px 0.4px black;
+    cursor: crosshair;
+}
+
+.channel:hover .click-point {
+    background-color: white !important;
+}
+
+.upper-root>.channels-container {
+    transform: translateY(-0.4em) translateX(-0.1em) !important;
+}
+
+.upper-root>.channels-container>.channel>.click-point {
+    transform: translateX(-0.087em) translateY(-0.24em) scaleX(1.001) scaleY(0.9) scale(0.78);
+}
+.channel:hover>.click-point {
+    background-color: white;
+    box-shadow: 0 0 0.4px 0.4px black;
+}
+
+.standalone-channel {
+    width:0.05em;
+    transform: translateX(0.05em);
+
+}
+.channels-container {
+transform: translateY(-0.3em) translateX(-0.1em)!important;
+}
+
+.channel:nth-child(2) {
+    /*width: 1em;*/
+    /*height: 1em;*/
+    /*background-color: white !important;*/
+    transform: translateX(0.2em);
+}
+.distalbuccal-channel, .distalbuccal-channel>.click-point {
+    background-color: #15a9e7 !important;
+
+}
+
+.medialbuccal-channel, .medialbuccal-channel>.click-point {
+    background-color: grey !important;
+}
+
+.medial-root.down-left>.channels-container {
+    transform: translateX(-0.1em);
+}
+
+.distal-root.down-right>.channels-container {
+    transform: translateX(-0.1em);
+}
+.distal-root.down-left>.channels-container {
+    transform: translateX(-0.1em);
+}
+.medial-root.down-right>.channels-container {
+    transform: translateX(-0.1em);
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-custom" th:fragment="nav" >
+    <a class="navbar-brand" id="string" href="#" width="250">
+        <img th:src="@{/resources/img/i.png}" width="30" height="30" class="d-inline-block align-top" alt="Info Service Logo">
+        <span>
+            <span style="position: absolute; transform: translateX(-4em) translateY(-1em) scale(0.5); color: white" th:text="'Automobile'">Automobile</span>
+            <span class="blink_on" id="logo-txt" th:text="#{label.pages.logo}">Parts</span>
+            <span style="position: absolute; transform: translateX(-4em) translateY(1em) scale(0.5)" th:text="'Store & Service'">Store & Service</span>
+        </span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:text="#{label.link.home}" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:text="#{label.link.post}" th:href="@{/createAd}">Post Ad</a>
+            </li>
+
+            <li class="nav-item dropdown" id="account-span">
+
+
+                <a class=' nav-link far fa-user nav-link account-i' th:href="@{/login}"></a>
+                <a class="nav-link dropdown-toggle account-link" th:text="#{label.link.myaccount}" th:href="@{/login}" id="accountDropdown" role="button" data-toggle="dropdown" tabindex="-1" aria-haspopup="true" aria-expanded="false">
+                    My Account
+                </a>
+
+
+                <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                    <a class="dropdown-item" th:text="#{label.user.login}" th:href="@{/login}">Login</a>
+                    <a class="dropdown-item" th:text="#{label.user.register}" th:href="@{/registration.html}">Sign Up</a>
+                    <!--a class="dropdown-item" th:text="#{label.form.loginUkrainian}" th:href="@{/?lang=ua}">Ukrainian</a>
+                    <a class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{/?lang=ru}">Russian</a-->
+
+                    <!--div class="dropdown-divider"></div>
+                <a id="test" class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{/?lang=ru}">testRussian</a-->
+                    <!--a class="dropdown-item" href="#">Something else here</a-->
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <img th:src="'/resources/img/' + #{image.fileName.lang.flag}" width="95" height="45" class="d-inline-block align-top lang-selector-flag" alt="Info Service Logo">
+                <a class="nav-link dropdown-toggle" th:text="#{label.link.lang}" href="#" id="langDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Language
+                </a>
+                <div class="dropdown-menu" aria-labelledby="langDropdown">
+                    <a class="dropdown-item" th:text="#{label.form.loginEnglish}" th:href="@{?lang=en}">English</a>
+<!--                    <a class="dropdown-item" th:text="#{label.form.loginSpanish}" th:href="@{?lang=es_Es}">Spanish</a>-->
+                    <a class="dropdown-item" th:text="#{label.form.loginUkrainian}" th:href="@{?lang=ua}">Ukrainian</a>
+                    <a class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{?lang=ru}">Russian</a>
+                    <!--div class="dropdown-divider"></div>
+                <a id="test" class="dropdown-item" th:text="#{label.form.loginRussian}" th:href="@{/?lang=ru}">testRussian</a-->
+                    <!--a class="dropdown-item" href="#">Something else here</a-->
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" th:placeholder="#{label.search.placeholder}" aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit" th:text="#{label.search.button}">Search</button>
+        </form>
+    </div>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,550 @@
+
+@media print {
+
+    @page {
+        margin-left: -3.6cm;
+        margin-top: -0.9cm;
+        margin-right: 0cm;
+        /*padding: 1cm !important;*/
+        width: 110%;
+        size: portrait;
+    }
+
+    @page:first {
+        size: portrait
+    }
+
+}
+
+/*@media print {*/
+/*    * {-webkit-print-color-adjust:exact !important;}*/
+/*    @page  {*/
+/*        margin: 0 !important;*/
+/*        padding: 0 !important;*/
+/*    }*/
+/*    body {*/
+/*        background-color: #5bc0de;*/
+/*        background-image: url("/resources/img/043-1.png");*/
+/*        background-repeat: no-repeat;*/
+/*        background-size: 100%;*/
+/*        -webkit-print-color-adjust: exact;*/
+/*    }*/
+/*}*/
+
+
+
+
+/* Экстрамалые девайсы («портретные телефоны», < 576px) */
+@media (max-width: 575.98px) {
+    body {
+        overflow-x: hidden;
+    }
+    #drop-area {
+        transform: translateX(-77px) translateY(-115px) scale(0.7);
+    }
+    #post-new-ad-button {
+        transform: translateX(-20px) scale(1.1);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.37em) translateY(-17em) scale(1.1) !important;
+    }
+
+
+    .create-ad-titleform {
+        transform: translateX(-2em);
+    }
+    .form-control-createAd-custom {
+        width: 365px;
+    }
+
+    .newAd-controls {
+        transform: translateX(-4em);
+    }
+    .fa-copy {
+        transform: translateY(-5em) scale(3);
+    }
+}
+
+/* Малые девайсы («ландшафтные», >= 575px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    body {
+        overflow-x: hidden;
+    }
+    .nav-item {
+        margin-left: 15px;
+    }
+    #drop-area {
+        transform: translateX(-77px) translateY(-115px) scale(0.7);
+    }
+    #post-new-ad-button {
+        transform: translateX(-20px) scale(1.1);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.37em) translateY(-17em) scale(1.1) !important;
+    }
+
+    .create-ad-titleform {
+        transform: translateX(-2em);
+    }
+    .newAd-controls {
+        transform: translateX(-4em);
+    }
+    .fa-copy {
+        transform: translateY(-5em) scale(3);
+    }
+}
+
+
+/* medium screen (tablets) */
+
+/* Средние девайсы («таблетки», >= 768px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    body {
+        overflow-x: hidden;
+    }
+    .nav-item {
+        margin-left: 20px;
+    }
+    #drop-area {
+        transform: translateY(-100px) scale(0.7);
+    }
+    #post-new-ad-button {
+        transform: translateX(-20px) scale(1.1);
+    }
+    #multiple-ads-button {
+        transform: translateX(-2em) translateY(-17em) scale(0.95) !important;
+    }
+
+    .create-ad-titleform {
+        transform: translateX(-1em);
+    }
+    .newAd-controls {
+        transform: translateX(-4em);
+    }
+    .fa-copy {
+        transform: translateX(6em) translateY(-3em) scale(3);
+    }
+}
+
+
+
+
+
+/* large screen (11 breakpoints)*/
+
+/*==============================================================================================*/
+
+
+/* Большие девайсы (большие десктопы,           >= 992px) */                 /*     11      */
+@media (min-width: 992px) and (max-width: 1049.98px) {
+
+    body {
+        overflow-x: hidden;
+    }
+    .nav-item {
+        margin-left: 27px;
+    }
+
+    /*     dropdowns on hover (only for large screen)*/
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown > .dropdown-toggle:active {
+        pointer-events: auto;
+    }
+
+    #langDropdown {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+
+    /* end of dropdowns on hover (only for large screen)*/
+    #drop-area {
+        transform: translateY(-75px);
+    }
+    .create-ad-titleform {
+        transform: translateX(-3em);
+    }
+    #post-new-ad-button {
+        transform: scale(1.2);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.8em) translateY(-16em) scaleX(0.92) scale(1.05) !important;
+    }
+    .newAd-controls {
+        transform: translateX(-6em);
+    }
+    .fa-copy {
+        transform: translateX(-2em) translateY(-3em) scale(3);
+    }
+}
+
+/* Большие девайсы (большие десктопы,             >= 1050px) */                /*     10      */
+@media (min-width: 1050px) and (max-width: 1099.98px) {
+    body {
+        overflow-x: hidden;
+    }
+    .nav-item {
+        margin-left: 37px;
+    }
+
+    /*     dropdowns on hover (only for large screen)*/
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown > .dropdown-toggle:active {
+
+    }
+    #langDropdown {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+    /* end of dropdowns on hover (only for large screen)*/
+    #drop-area {
+        transform: translateY(-75px);
+    }
+    .create-ad-titleform {
+        transform: translateX(-2em);
+    }
+    #post-new-ad-button {
+        transform: scale(1.3);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.8em) translateY(-15.9em) scaleX(0.92) scale(1.13) !important;
+    }
+    .fa-copy {
+        transform: translateX(1em) translateY(-3em) scale(3);
+    }
+}
+
+/* Большие девайсы (большие десктопы,               >= 1100px) */               /*     9      */
+@media (min-width: 1100px) and (max-width: 1149.98px) {
+    body {
+        overflow-x: hidden;
+    }
+    .nav-item {
+        margin-left: 47px;
+    }
+
+    /*     dropdowns on hover (only for large screen)*/
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown > .dropdown-toggle:active {
+
+    }
+    #langDropdown {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+    /* end of dropdowns on hover (only for large screen)*/
+    #drop-area {
+        transform: translateY(-75px);
+    }
+    .create-ad-titleform {
+        transform: translateX(-2em);
+    }
+    #post-new-ad-button {
+        transform: scale(1.3);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.8em) translateY(-15.8em) scaleX(0.92) scale(1.15) !important;
+    }
+    .fa-copy {
+        transform: translateX(1em) translateY(-3em) scale(3);
+    }
+}
+
+/* Большие девайсы (большие десктопы,                >= 1150px) */              /*     8      */
+@media (min-width: 1150px) and (max-width: 1199.98px) {
+    body {
+        overflow-x: hidden;
+    }
+    .nav-item {
+        margin-left: 57px;
+    }
+
+    /*     dropdowns on hover (only for large screen)*/
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown > .dropdown-toggle:active {
+
+    }
+    #langDropdown {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+    /* end of dropdowns on hover (only for large screen)*/
+    #drop-area {
+        transform: translateY(-75px);
+    }
+    .create-ad-titleform {
+        transform: translateX(-2em);
+    }
+    #post-new-ad-button {
+        transform: scale(1.4);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.8em) translateY(-15.7em) scaleX(0.92) scale(1.2) !important;
+    }
+    .fa-copy {
+        transform: translateX(1em) translateY(-3em) scale(3);
+    }
+}
+
+/* Большие девайсы (большие десктопы,                 >= 1200px) */             /*     7      */
+@media (min-width: 1200px) and (max-width: 1249.98px) {
+    body {
+        overflow-x: hidden;
+    }
+    .nav-item {
+        margin-left: 67px;
+    }
+
+    /*     dropdowns on hover (only for large screen)*/
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown > .dropdown-toggle:active {
+
+    }
+    #langDropdown {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+    /* end of dropdowns on hover (only for large screen)*/
+    #drop-area {
+        transform: translateY(-75px);
+    }
+    .create-ad-titleform {
+        transform: translateX(-2em);
+    }
+    #post-new-ad-button {
+        transform: scale(1.45);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.8em) translateY(-15.6em) scaleX(0.92) scale(1.25 ) !important;
+    }
+    .fa-copy {
+        transform: translateX(-1em) translateY(-3em) scale(3);
+    }
+}
+
+/* Большие девайсы (большие десктопы,                  >= 1250px) */             /*     6      */
+@media (min-width: 1250px) and (max-width: 1299.98px) {
+    body {
+        overflow-x: hidden;
+    }
+    .nav-item {
+        margin-left: 75px;
+    }
+
+    /*     dropdowns on hover (only for large screen)*/
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown > .dropdown-toggle:active {
+
+    }
+    #langDropdown {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+    /* end of dropdowns on hover (only for large screen)*/
+    #drop-area {
+        transform: translateY(-75px);
+    }
+    .create-ad-titleform {
+        transform: translateX(-1em);
+    }
+    #post-new-ad-button {
+        transform: scale(1.5);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.8em) translateY(-15.5em) scaleX(0.92) scale(1.3 ) !important;
+    }
+    .fa-copy {
+        transform: translateX(1em) translateY(-3em) scale(3);
+    }
+}
+
+/* Большие девайсы (большие десктопы,                 >= 1300px) */            /*     5      */
+@media (min-width: 1300px) and (max-width: 1349.98px)  {
+    body {
+        overflow-x: hidden;
+    }
+    .nav-item {
+        margin-left: 91px;
+    }
+
+    /*     dropdowns on hover (only for large screen)*/
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown > .dropdown-toggle:active {
+
+    }
+    #langDropdown {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+    /* end of dropdowns on hover (only for large screen)*/
+    #drop-area {
+        transform: translateY(-75px);
+    }
+    .create-ad-titleform {
+        transform: translateX(-1em);
+    }
+    #post-new-ad-button {
+        transform: scale(1.55);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.8em) translateY(-15.4em) scaleX(0.92) scale(1.35 ) !important;
+    }
+    .fa-copy {
+        transform: translateX(1em) translateY(-3em) scale(3);
+    }
+}
+
+/* Большие девайсы (большие десктопы,                 >= 1350px) */            /*     4      */
+@media (min-width: 1350px) and (max-width: 1399.98px)  {
+    .nav-item {
+        margin-left: 111px;
+    }
+
+    /*     dropdowns on hover (only for large screen)*/
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown > .dropdown-toggle:active {
+
+    }
+    #langDropdown {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+    /* end of dropdowns on hover (only for large screen)*/
+    #drop-area {
+        transform: translateY(-75px);
+    }
+    .create-ad-titleform {
+        transform: translateX(-1em);
+    }
+    #post-new-ad-button {
+        transform: scale(1.6);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.8em) translateY(-15.3em) scaleX(0.92) scale(1.4 ) !important;
+    }
+    .fa-copy {
+        transform: translateX(1em) translateY(-3em) scale(3);
+    }
+}
+
+/* Большие девайсы (большие десктопы,               >= 1400px) */             /*     3      */
+@media (min-width: 1400px) and (max-width: 1449.98px)  {
+    .nav-item {
+        margin-left: 127px;
+    }
+
+    /*     dropdowns on hover (only for wide screen)*/
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown > .dropdown-toggle:active {
+
+    }
+    #langDropdown {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+    /* end of dropdowns on hover (only for wide screen)*/
+    #drop-area {
+        transform: translateY(-75px) scale(1.05);
+    }
+    .create-ad-titleform {
+        transform: translateX(-1em);
+    }
+    #post-new-ad-button {
+        transform: scale(1.65);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.8em) translateY(-15.2em) scaleX(0.92) scale(1.45 ) !important;
+    }
+    .fa-copy {
+        transform: translateX(1em) translateY(-3em) scale(3);
+    }
+}
+
+/* Большие девайсы (большие десктопы,               >= 1450px) */              /*     2      */
+@media (min-width: 1450px) and (max-width: 1499.98px)  {
+    .nav-item {
+        margin-left: 136px;
+    }
+
+    /*     dropdowns on hover (only for wide screen)*/
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown > .dropdown-toggle:active {
+
+    }
+    #langDropdown {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+    /* end of dropdowns on hover (only for wide screen)*/
+    #drop-area {
+        transform: translateY(-60px) scale(1.1);
+    }
+    .create-ad-titleform {
+        transform: translateX(-1em);
+    }
+    #post-new-ad-button {
+        transform: scale(1.7);
+    }
+    #multiple-ads-button {
+        transform: translateX(-1.8em) translateY(-15.1em) scaleX(0.92) scale(1.47 ) !important;
+    }
+    .fa-copy {
+        transform: translateX(1em) translateY(-3em) scale(3);
+    }
+}
+
+/* Большие девайсы (большие десктопы,              >= 1500px) */              /*     1      */
+@media (min-width: 1500px) {
+    .nav-item {
+        margin-left: 142px;
+    }
+
+    /*     dropdowns on hover (only for wide screen)*/
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown > .dropdown-toggle:active {
+
+    }
+    #langDropdown {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: visiblePainted;
+    }
+    /* end of dropdowns on hover (only for wide screen)*/
+    #drop-area {
+        transform: translateY(-60px) scale(1.1);
+    }
+    .create-ad-titleform {
+        transform: translateX(-1em);
+    }
+    #post-new-ad-button {
+        transform: scale(1.73);
+    }
+    #multiple-ads-button {
+
+        transform: translateX(-1.8em) translateY(-15em) scaleX(0.92) scale(1.51 ) !important;
+    }
+    .fa-copy {
+        transform: translateX(1em) translateY(-3em) scale(3);
+    }
+
+}

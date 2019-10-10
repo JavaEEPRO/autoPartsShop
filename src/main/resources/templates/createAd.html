@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head  th:replace="~{fragments/head :: head(#{label.pages.index.title})}"></head>
+
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+
+<div class="container" id="newad-form-container">
+    <div >
+        <br/>
+        <h1 class=" create-ad-titleform" th:text="#{label.createad.titleform}">Create New Ad</h1>
+        <i class="fas fa-copy"></i>
+        <br/>
+
+
+<!--        <div class="">&lt;!&ndash;form-group"&ndash;&gt;-->
+<!--            &lt;!&ndash;@Html.Label("Фото",  new { @class = "col-md-2 col-sm-4 col-xs-4 control-label" })&ndash;&gt;-->
+<!--            <div id="uplContainer">-->
+<!--                <input type="file" id="as-u5-fileToUpload" name="photo" multiple accept="image/*,image/jpeg" class="photo-area" onchange="alert('change of state of file input field is succeeded')">-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <!--<div class="">
+            <div class = "userMainPhoto">
+                <input type="file" id="as-u5-fileToUpload" name="photo" accept="image/*,image/jpeg">
+                <div id="uplContainer"><span></span></div>
+            </div>
+            <div id="thmb"></div>
+        </div>-->
+
+        <form action="/createAd" method="POST" enctype="utf8" >
+
+            <div class="form-group row" >
+                <!--span><img th:id="title-img" th:src="@{/resources/img/title.png}"></span-->
+                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>
+                <span class="col-sm-5"><input class="form-control form-control-createAd-custom" th:placeholder="#{label.ad.name.placeholder}" name="name" value="" required="required"/></span>
+                <span id="nameOfAdError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 newad-label orange" th:text="#{label.createad.kind}">Kind Of Ad</label>
+                <span class="col-sm-5">
+                    <select th:id="kind-select" class="dropdown form-control form-control-createAd-custom" th:name="kind">
+                        <option class="" th:value="#{property.ad.kind.services}" th:text="#{label.ad.kind.options.services}" >services</option>
+                        <option class="" th:value="#{property.ad.kind.goods}" th:text="#{label.ad.kind.options.goods}" >goods</option>
+                    </select>
+
+                </span>
+                <span id="kindOfAdError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <br/>
+
+
+
+
+
+
+
+
+
+            <div class="form-group row">
+                <label class="col-sm-3 newad-label green" th:text="#{label.createad.categories}">Categories Of Ad</label>
+                <span class="col-sm-5"><input class="form-control form-control-createAd-custom" name="categories" value="" required="required"/></span>
+                <span id="categoriesOfAdError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+<!--            <br/>-->
+
+
+
+
+
+
+
+            <div class="form-group row">
+                <label class="col-sm-3 newad-label blue" th:text="#{label.createad.description}">Description Of Ad</label>
+                <span class="col-sm-5"><input id="descriptionOfAd" class="form-control form-control-createAd-custom" name="description" value="" required="required"/></span>
+                <span id="descriptionOfAdError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 newad-label violet" th:text="#{label.createad.body}">Body Of Ad</label>
+                <span class="col-sm-5"><input id="bodyOfAd" class="form-control form-control-createAd-custom" name="body" value="" required="required"/></span>
+                <span id="bodyOfAdError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <!--div class="form-group row">
+                <label class="col-sm-3" th:text="#{label.user.2fa}">Use Two Step Verification</label>
+                <span class="col-sm-5"><input type="checkbox" name="using2FA" value="true"/></span>
+            </div-->
+
+
+            <!--br/-->
+            <div class="container newAd-controls">
+
+                <button type="submit" id="post-new-ad-button" class="btn btn-primary" th:text="#{label.button.persistAd.submit}">Post Ad</button>
+
+
+                <div id="drop-area">
+                    <form class="my-form">
+
+                        <p class="drop-area-title" th:text="#{label.upoadHtml5.dr-n-drop}">Load images using the file selection dialog or dragging the desired images into the selected area</p>
+                        <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+                        <div class="container clear-drop-zone">
+                            <div class="row">
+                                <label id="choose-drop-zone-btn" class="btn btn-block btn-primary col-sm-10" for="fileElem" th:text="#{label.button.uploadHtml5.chooseImages}">Select images</label>
+                                <label id="clear-drop-zone-btn" class="btn btn-block btn-outline-danger col-sm-2">
+                                    <i class="fas fa-recycle customized-recycle"></i>
+                                    <i class="fas fa-trash customized-bin"></i>
+                                    <i class="fas fa-broom customized-broom"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    <progress id="progress-bar" class="progress-bar" max=100 value=0><span>progress</span><span id="span-progressive-1">100%</span></progress>
+                    <div id="gallery"></div>
+                </div>
+
+                <a id="multiple-ads-button" class="btn btn-outline-light" th:href="@{#}" th:text="#{label.button.persistAd.multipleAds}">Load Multiple Ads</a>
+
+            </div>
+        </form>
+
+
+        <!--br/>
+        <a th:href="@{/login}" th:text="#{label.form.loginLink}">login</a-->
+    </div>
+</div>
+
+</body>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+<div th:replace="~{fragments/scripts :: imagesUploaderScript}"></div>
+</html>

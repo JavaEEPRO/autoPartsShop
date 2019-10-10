@@ -1,0 +1,1817 @@
+<!DOCTYPE html>  <!--samaruk sashecka 0993708313-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:object="${patient}">
+
+<head  th:replace="~{fragments/alternativeHead :: alternativeHead (${patient['new']} ? #{label.newCard.title} : #{label.editCard.title} + ': ' + ${patient.firstName + ' ' + patient.lastName.toUpperCase() + ' (' + patient.birthDay.toLocalDate() + ')'})}"></head>  <!--#{label.createad.titleform}-->
+
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container" id="newad-form-container">
+    <div >
+
+
+        <style>
+            #clinic-address-input {
+                /*opacity: 0.8;*/
+                transform: translateX(-0.1em) scale(0.8);
+                /*min-width: 20em !important;*/
+                color: #0e0e0e;
+            }
+            #clinic-name-input {
+                transform: translateX(0.1em) scale(0.8);
+                color: #0e0e0e;
+            }
+
+            #edrpou-no-input {
+                opacity: 0.93;
+                transform: translateX(11.67em) translateY(-0.8em) scale(0.8);
+                text-align: center;
+                color: #0e0e0e;
+                letter-spacing: 1.33em;
+                text-overflow: clip;
+
+            }
+
+
+
+            #reg-no-input {
+                transform: translateX(44.2em) translateY(-1.75em) scale(0.8);
+                color: #0e0e0e;
+            }
+
+            #year-input {
+                transform: translateX(24.1em) translateY(-3.62em) scale(0.58);
+                text-align: center;
+                color: #0e0e0e;
+            }
+            #last-name-input {
+                transform: translateX(10.1em) translateY(-7.33em) scale(0.67);
+                color: #0e0e0e;
+            }
+            #first-name-input {
+                transform: translateX(24.95em) translateY(-10.73em) scale(0.67);
+                color: #0e0e0e;
+            }
+
+            #second-name-input {
+                transform: translateX(39.8em) translateY(-14.07em) scale(0.67);
+                color: #0e0e0e;
+            }
+            #gender-select {
+                transform: translateX(23em) translateY(-15.5em) scale(0.55) scaleX(0.87);
+                color: #0e0e0e;
+            }
+            #birth-day-input {
+                opacity: 0.93;
+                transform: translateX(42.87em) translateY(-19em) scale(0.72);
+                text-align: center;
+                color: #0e0e0e;
+                letter-spacing: 1.22em;
+                text-overflow: clip;
+                width: 11.6em;
+                /*font-size: small;*/
+            }
+
+            .patient-creation-form {
+                background-color: #FFFF99;
+            }
+            #address-input {
+                transform: translateX(15.63em) translateY(-20.53em) scale(0.67);
+                color: #0e0e0e;
+            }
+            #phone-input {
+                transform: translateX(31.4em) translateY(-23.89em) scale(0.67);
+                color: #0e0e0e;
+            }
+            #diagnosis-input {
+                transform: translateX(1.2em) translateY(-25.89em) scale(0.56);
+                color: #0e0e0e;
+            }
+            #complaints-input {
+                transform: translateX(-0.4em) translateY(-26.6em) scale(0.54);
+                color: #0e0e0e;
+            }
+            #transferred-input {
+                transform: translateX(9.6em) translateY(-24.97em) scale(0.462);
+                color: #0e0e0e;
+            }
+            #growth-input {
+                transform: translateX(10.7em) translateY(-24.57em) scale(0.5);
+                color: #0e0e0e;
+            }
+            .edrpou-inputs {
+                transform:  scaleX(0.9);
+                padding-left: 2px !important;
+                padding: 15px !important;
+
+                display: inline-block;
+            }
+            .edrpou-group {
+                width: 20em;
+                transform: translateX(12.1em) translateY(-0.5em) scale(0.83) scaleY(0.9);
+            }
+            .edrpou-group {
+
+            }
+
+
+
+            /*util buttons*/
+
+            #linast {
+                transform: translateX(-53.6em) translateY(-55.5em) scale(0.9);
+                opacity: 0.62;
+                text-align: center;
+                text-shadow: #333333;
+
+            }
+            #resetClinicCredentials {
+                transform: translateX(-56.3em) translateY(-57.7em) scale(0.9) scaleX(1.1);
+                opacity: 0.62;
+                text-align: center;
+                text-shadow: #333333;
+
+            }
+            #resetAllFields {
+                transform: translateX(-58.9em) translateY(-63em) scale(0.9) scaleX(1.1);
+                opacity: 0.62;
+                text-align: center;
+                text-shadow: #333333;
+
+            }
+
+            #dropdown-last-names {
+                position: absolute;
+                background-color: lime;
+                width: 40em;
+                opacity: 0.8;
+                transform: translateX(-24em) translateY(-5.5em);
+                z-index: 15;
+            }
+
+            .namesakes:hover {
+                background-color: #003399;
+                color: white;
+            }
+
+            .highlighted {
+                outline: solid rgba(0, 0, 0, .25) 10000px;
+                z-index: 14;
+            }
+
+            #area-clinic-credentials {
+                border: red 3px solid;
+                position: absolute;
+                width: 32.65em;
+                height:9.48em;
+                transform: translateX(0.53em) translateY(-11.28em);
+            }
+            #area-title-page {
+                border: red 3px solid;
+                position: absolute;
+                width: 59.6em;
+                height:40.05em;
+                transform: translateX(0.5em) translateY(-58.22em);
+            }
+
+            #pagesContainer {
+                position: fixed;
+                top: 3.9em;
+                right: -9.95em;
+                /*overflow: auto;*/
+                /*border: #333333 1px solid;*/
+                height: 46.1em;
+                width: 13em;
+                /*right: 0.5em;*/
+                /*transform: translateY(-67.5em) translateX(19.7em);*/
+            }
+            #pagesContainer:hover {
+                /*transform: translateY(-68em) translateX(0.3em);*/
+            }
+            .pageOfCard {
+                /*border: 1px black solid;*/
+                margin: 1px auto;
+                width: 10.8em;
+                height: 5.54em;
+                display: flex;
+                animation: ease-out;
+                transition: 0.3s;
+                /*position: fixed;*/
+            }
+            .pageOfCard:hover {
+                transform: translateX(-9em) scale(1.05);
+
+
+            }
+            .pageOfCard:hover .verticalLabel {
+                /*background-color: blue;*/
+                opacity: 0.77;
+                color: darkblue;
+                border: 1px solid white;
+                transform: translateY(0.2em) scale(1.03);
+                text-shadow: 1px 2px 5px blue;
+            }
+            .pageOfCard:hover .img043-right-nav {
+                box-shadow:  5px 7px 13px white;
+            }
+
+            /**/
+            .verticalLabel {
+                width:1em;
+                height: 6.3em;
+                line-height:1em;
+                font-size:0.7em;
+                text-shadow: 1px 2px 5px royalblue;
+                font-weight: bold;
+                background-color:#ffffc9;
+                border-bottom-left-radius: 7px;
+                opacity:0.7;
+                color: lightslategrey;
+                transform: translateY(0.1em);
+            }
+            .img043-right-nav {
+                background-color: green;
+
+                width: 9.38em;
+                height: 5.14em;
+            }
+            .img043-right-nav:hover {
+                opacity: 1;
+            }
+
+
+        </style>
+
+
+        <br/>
+        <!--        <h1 class=" create-ad-titleform" th:text="#{label.createad.titleform}">Create New Ad</h1>-->
+        <!--        <i class="fas fa-copy"></i>-->
+        <br/>
+        <span><img th:id="img043" th:src="@{/resources/img/card/043-1.png}"></span>
+
+        <form th:object="${patient}" action="/card/save" method="POST" enctype="utf8" >
+
+
+            <br/>
+            <br/>
+            <br/>
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-2"><input title="input name of clinic" th:field="*{clinicName}" id="clinic-name-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="clinic name" name="clinicName" value="" required="required"/></span>
+                <span id="nameOfClinicError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-3"><input th:field="*{clinicAddress}" id="clinic-address-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="clinic address" name="clinicAddress" value="" required="required"/></span>
+                <span id="addressOfClinicError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+
+
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-3"><input th:field="*{clinicEdrpou}" maxlength="8" id="edrpou-no-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="#USREOU#" name="clinicEdrpou" value="" required="required"/></span>
+                <span id="edrpouNumberError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+            <div id="area-clinic-credentials" class="highlighted hidden"></div>
+
+
+            <!--            <div class="form-group row edrpou-group" >-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou1" value="" required="required"/></span>-->
+            <!--&lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou2" value="" required="required"/></span>-->
+            <!--&lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou3" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou4" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou5" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou6" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou7" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou8" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--            </div>-->
+
+
+
+
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-sm-2"><input th:field="*{registryNumber}" id="reg-no-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="registry number" name="registryNumber" th:value="${patient.registryNumber}" required="required"/></span>
+                <span id="registryNumberError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-sm-2"><input th:field="*{year}" id="year-input" class="form-control form-control-createAd-custom patient-creation-form" name="year" th:value="${patient.year}" required="required"/></span>
+                <span id="yearError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+            <br/>
+            <br/>
+
+            <div class="form-group row" >
+
+                <span class="col-sm-4"><input th:field="*{lastName}" id="last-name-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="last name" name="lastName" value="" required="required"/></span>
+                <span id="lastNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                <span id="span-dropdown-last-names" class="hidden">
+                    <select name="lastNames" id="dropdown-last-names" size="1">
+                        <!--option class="" th:value="true" th:text="1" >man</option>
+                        <option class="" th:value="false" th:text="2" >woman</option-->
+                    </select>
+                </span>
+
+            </div>
+
+            <div class="form-group row" >
+
+                <span class="col-sm-4"><input th:field="*{firstName}" id="first-name-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="first name" name="firstName" value="" required="required"/></span>
+                <span id="firstNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-sm-4"><input th:field="*{secondName}" id="second-name-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="second name" name="secondName" value="" required="required"/></span>
+                <span id="secondNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label orange" th:text="#{label.createad.kind}">Kind Of Ad</label>-->
+                <span class="col-sm-1">
+                            <select th:field="*{gender}" id="gender-select" class="dropdown form-control form-control-createAd-custom patient-creation-form" name="gender">
+                                <option id="gender-man-true" class="" th:value="true" th:text="1" >man</option>
+                                <option id="gender-woman-false" class="" th:value="false" th:text="2" >woman</option>
+                            </select>
+
+                </span>
+                <span id="genderError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label green" th:text="#{label.createad.categories}">Categories Of Ad</label>-->
+                <span class="col-sm-3"><input th:field="*{strReprOfBirthDay}" id="birth-day-input" maxlength="6" class="form-control form-control-createAd-custom patient-creation-form" name="strReprOfbirthDay" placeholder="ddMMyy" value="" required="required"/></span>
+                <span id="birthDateError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label blue" th:text="#{label.createad.description}">Description Of Ad</label>-->
+                <span class="col-sm-4"><input th:field="*{address}" id="address-input" class="form-control form-control-createAd-custom patient-creation-form" name="address" placeholder="patient address" value="" required="required"/></span>
+                <span id="patientAddressError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label violet" th:text="#{label.createad.body}">Body Of Ad</label>-->
+                <span class="col-sm-3"><input th:field="*{phone}" id="phone-input" class="form-control form-control-createAd-custom patient-creation-form" name="phone" placeholder="phone" value="" required="required"/></span>
+                <span id="phoneError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label violet" th:text="#{label.createad.body}">Body Of Ad</label>-->
+                <span class="col-sm-4"><input th:field="*{diagnosis}" id="diagnosis-input" class="form-control form-control-createAd-custom patient-creation-form" name="diagnosis" placeholder="diagnosis" value="" required="required"/></span>
+                <span id="diagnosisError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label violet" th:text="#{label.createad.body}">Body Of Ad</label>-->
+                <span class="col-sm-5"><input th:field="*{complaints}" id="complaints-input" class="form-control form-control-createAd-custom patient-creation-form" name="complaints" placeholder="complaints" value="" required="required"/></span>
+                <span id="complaintsError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label violet" th:text="#{label.createad.body}">Body Of Ad</label>-->
+                <span class="col-sm-5"><input th:field="*{transferredAndConcomitantDiseases}" id="transferred-input" class="form-control form-control-createAd-custom patient-creation-form" name="transferredAndConcomitantDiseases" placeholder="transferred and concomitant diseases" value="" required="required"/></span>
+                <span id="transferredError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label violet" th:text="#{label.createad.body}">Body Of Ad</label>-->
+                <span class="col-sm-5"><input th:field="*{growthOfPresentDisease}" id="growth-input" class="form-control form-control-createAd-custom patient-creation-form" name="growthOfPresentDisease" placeholder="growth of present disease" value="" required="required"/></span>
+                <span id="growthError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+            <input id="isCardNew"  th:value="${patient['new']}" type="hidden"/>
+
+            <div id="area-title-page" class="highlighted hidden"></div>
+            <!--div class="form-group row">
+                <label class="col-sm-3" th:text="#{label.user.2fa}">Use Two Step Verification</label>
+                <span class="col-sm-5"><input type="checkbox" name="using2FA" value="true"/></span>
+            </div-->
+
+
+            <!--br/-->
+            <div class="container newAd-controls">
+
+                <button type="submit" id="post-new-ad-button" class="btn btn-primary" text="Persist Changes">Persist Changes</button>
+
+                <th:button id="linast" class="btn btn-light" title="set LinaStom credentials">LS</th:button>
+                <th:button id="resetClinicCredentials" class="btn btn-light" title="reset clinic credentials">×</th:button>
+                <th:button id="resetAllFields" class="btn btn-light" title="reset all changes">×</th:button>
+                <th:button id="revertPreviousCommit"></th:button>
+
+
+
+
+
+
+
+
+
+<!--                <p>Небоскребы, небоскребы,<br />-->
+<!--                    Стены, лифты, этажи…<br />-->
+<!--                    Расскажу я вам, ребята,<br />-->
+<!--                    Про восстание машин.</p>-->
+
+<!--                <p>Чу! — сверкнуло синим светом,<br />-->
+<!--                    Ветром дунуло с реки.<br />-->
+<!--                    «<span class="highlighted">Терминатор, Терминатор!</span>» —<br />-->
+<!--                    Зашептались мужики.</p>-->
+
+<!--                <th:button id="result" onclick="generateNewRegistryNumber()" class="btn btn-light">CALCULATE</th:button>-->
+
+
+                <!--                <div id="drop-area">-->
+                <!--                    <form class="my-form">-->
+
+                <!--                        <p class="drop-area-title" th:text="#{label.upoadHtml5.dr-n-drop}">Load images using the file selection dialog or dragging the desired images into the selected area</p>-->
+                <!--                        <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">-->
+                <!--                        <div class="container clear-drop-zone">-->
+                <!--                            <div class="row">-->
+                <!--                                <label id="choose-drop-zone-btn" class="btn btn-block btn-primary col-sm-10" for="fileElem" th:text="#{label.button.uploadHtml5.chooseImages}">Select images</label>-->
+                <!--                                <label id="clear-drop-zone-btn" class="btn btn-block btn-outline-danger col-sm-2">-->
+                <!--                                    <i class="fas fa-recycle customized-recycle"></i>-->
+                <!--                                    <i class="fas fa-trash customized-bin"></i>-->
+                <!--                                    <i class="fas fa-broom customized-broom"></i>-->
+                <!--                                </label>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </form>-->
+                <!--                    <progress id="progress-bar" class="progress-bar" max=100 value=0><span>progress</span><span id="span-progressive-1">100%</span></progress>-->
+                <!--                    <div id="gallery"></div>-->
+                <!--                </div>-->
+
+                <!--                <a id="multiple-ads-button" class="btn btn-outline-light" th:href="@{#}" th:text="#{label.button.persistAd.multipleAds}">Load Multiple Ads</a>-->
+
+            </div>
+        </form>
+
+
+        <!--img th:src="@{/resources/img/043-1.png}" alt=""-->
+
+
+
+    </div>
+</div>
+
+
+<span><img class="img043" th:src="@{/resources/img/card/043-2.png}"></span>
+<form th:object="${patientRsrch1}" action="/card/save" method="POST" enctype="utf8" >
+
+
+
+
+    <div class="form-group row">
+        <!--                <label class="col-sm-3 newad-label blue" th:text="#{label.createad.description}">Description Of Ad</label>-->
+        <span class="col-sm-4"><input th:field="*{data}" id="data-input" class="form-control form-control-createAd-custom patient-creation-form" name="data" placeholder="tot. research conclusion" value="" required="required"/></span>
+        <span id="patientDataError" class="alert alert-danger col-sm-4" style="display:none"></span>
+    </div>
+
+    <table border="1" id="examinations-table">
+        <thead>
+        <tr>
+<!--            <th th:text="#{msg.id}" />-->
+<!--            <th th:text="#{msg.name}" />-->
+            <th>doctor</th>
+            <th>exam. planned to start</th>
+            <th>examination started</th>
+            <th>exam. planned to finish</th>
+            <th>examination finished</th>
+            <th>examination concl.</th>
+            <th>show aff.</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="examination, iStat : ${patientRsrch1.examinations}"
+            th:style="${iStat.odd}? 'font-weight: bold;'"
+            th:alt-title="${iStat.even}? 'even' : 'odd'">
+            <td>
+                <span>
+        <!--                 <img class="main-ad-photo" th:src="${examination.photos.isEmpty()} ? '' : ${(ad.photos.get(0).url).substring(15)}"/>-->
+                     <div class="form-group row">
+                    <!--                <label class="col-sm-3 newad-label green" th:text="#{label.createad.categories}">Categories Of Ad</label>-->
+                    <span class="col-sm-9"><input id="examination-doctor-input" class="form-control form-control-createAd-custom patient-creation-form" name="name" th:value="${examination.doctor.name}"/></span>
+                    <span id="doctorNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+                    </div>
+                </span>
+            </td>
+            <!--td th:text="${ad.id}" /-->
+            <td>
+                <span>
+        <!--                 <img class="main-ad-photo" th:src="${examination.photos.isEmpty()} ? '' : ${(ad.photos.get(0).url).substring(15)}"/>-->
+                     <div class="form-group row">
+                        <!--                <label class="col-sm-3 newad-label green" th:text="#{label.createad.categories}">Categories Of Ad</label>-->
+                        <span class="col-sm-11"><input id="examination-start-input" class="form-control form-control-createAd-custom patient-creation-form" name="plannedToStart" th:value="${examination.plannedToStart} " type="datetime-local" th:readonly="${dateTimeNowMinusWeek>examination.plannedToStart && examination.plannedToStart!=null}"/></span>
+                        <span id="plannedToStartError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                    </div>
+                </span>
+            </td>
+            <td th:text="${examination.started}"/>
+
+            <td>
+                <span>
+        <!--                 <img class="main-ad-photo" th:src="${examination.photos.isEmpty()} ? '' : ${(ad.photos.get(0).url).substring(15)}"/>-->
+                     <div class="form-group row">
+                        <!--                <label class="col-sm-3 newad-label green" th:text="#{label.createad.categories}">Categories Of Ad</label>-->
+                        <span class="col-sm-11"><input id="examination-finish-input" class="form-control form-control-createAd-custom patient-creation-form" name="plannedToFinish" th:value="${examination.plannedToFinish}" type="datetime-local" th:readonly="${dateTimeNowMinusWeek>examination.plannedToFinish && examination.plannedToFinish!=null}"/></span>
+                        <span id="plannedToFinishError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                    </div>
+                </span>
+            </td>
+
+            <td th:text="${examination.finished}" />
+
+            <td>
+                <span>
+                    <div class="form-group row">
+                        <!--                <label class="col-sm-3 newad-label blue" th:text="#{label.createad.description}">Description Of Ad</label>-->
+                        <span class="col-sm-11"><input id="exam-data-input" class="form-control form-control-createAd-custom patient-creation-form" name="data" placeholder="examination conclusion" value="" required="required"/></span>
+                        <span id="examinationDataError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                    </div>
+                </span>
+            </td>
+
+            <td>
+                <span>
+        <!--                 <img class="main-ad-photo" th:src="${examination.photos.isEmpty()} ? '' : ${(ad.photos.get(0).url).substring(15)}"/>-->
+                     <div class="form-group row">
+                    <!--                <label class="col-sm-3 newad-label green" th:text="#{label.createad.categories}">Categories Of Ad</label>-->
+                    <span class="col-sm-5"><input id="examination-showAffected-input" class="form-control form-control-createAd-custom patient-creation-form" name="showAffected" th:value="${examination.showAffected}" th:type="checkbox" th:checked="${examination['showAffected']}"/></span>
+                    <span id="showAffectedError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+                    </div>
+                </span>
+            </td>
+<!--            &lt;!&ndash;td th:text="${ad.expiryDate}" /&ndash;&gt;-->
+<!--            &lt;!&ndash;td th:text="${ad.creationDate}" /&ndash;&gt;-->
+<!--&lt;!&ndash;            <td th:text="${ad.body}" />&ndash;&gt;-->
+<!--            &lt;!&ndash;td th:text="${ad.kind}" /&ndash;&gt;-->
+<!--            <td>-->
+
+<!--                <div th:if="${ad.photos.isEmpty()}">no gallery is available</div>-->
+
+<!--                <div th:if="${!ad.photos.isEmpty() && ad.photos.size() == 1}">-->
+<!--                    <img th:src="${(ad.photos.get(0).url).substring(15)}">-->
+<!--                </div>-->
+-+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--                <div th:if="${!ad.photos.isEmpty() && ad.photos.size() > 1}" class="custom-slider-container">-->
+<!--                    <input checked type="radio" name="respond" class="desktop">-->
+<!--                    <article class="slider">-->
+<!--                        <input th:if="${ad.photos.size() > 0}" checked type="radio" name="slider" th:id="switch + ${(ad.photos.get(0).url).substring(49,85)}">-->
+<!--                        <input th:if="${ad.photos.size() > 1}" type="radio" name="slider" th:id="switch + ${(ad.photos.get(1).url).substring(49,85)}">-->
+<!--                        <input th:if="${ad.photos.size() > 2}" type="radio" name="slider" th:id="switch + ${(ad.photos.get(2).url).substring(49,85)}">-->
+<!--                        <input th:if="${ad.photos.size() > 3}" type="radio" name="slider" th:id="switch + ${(ad.photos.get(3).url).substring(49,85)}">-->
+<!--                        <input th:if="${ad.photos.size() > 4}" type="radio" name="slider" th:id="switch + ${(ad.photos.get(4).url).substring(49,85)}">-->
+
+<!--                        <div th:id="slides + ${(ad.photos.get(0).url).substring(49,85)}" class="slides" >-->
+<!--                            <div class="overflow">-->
+<!--                                <div th:id="image + ${ad.photos.get(0).url.substring(49,85)}" >-->
+<!--                                    <article th:if="${ad.photos.size() > 0}" th:class="article + ${ad.photos.get(0).url.substring(49,85)}"><img th:src="${ad.photos.get(0).url.substring(15)}"></article>-->
+<!--                                    <article th:if="${ad.photos.size() > 1}" th:class="article + ${ad.photos.get(1).url.substring(49,85)}"><img th:src="${ad.photos.get(1).url.substring(15)}"></article>-->
+<!--                                    <article th:if="${ad.photos.size() > 2}" th:class="article + ${ad.photos.get(2).url.substring(49,85)}"><img th:src="${ad.photos.get(2).url.substring(15)}"></article>-->
+<!--                                    <article th:if="${ad.photos.size() > 3}" th:class="article + ${ad.photos.get(3).url.substring(49,85)}"><img th:src="${ad.photos.get(3).url.substring(15)}"></article>-->
+<!--                                    <article th:if="${ad.photos.size() > 4}" th:class="article + ${ad.photos.get(4).url.substring(49,85)}"><button class="btn btn-primary all-photos">more photos for this article</button></article>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="controls-wrapper">-->
+
+<!--                            <div th:id="controls + ${(ad.photos.get(0).url).substring(49,85)}" class="controls">-->
+<!--                                <label th:if="${ad.photos.size() > 0}" th:for="switch + ${(ad.photos.get(0).url).substring(49,85)}" th:id="control + ${(ad.photos.get(0).url).substring(49,85)}"></label>-->
+<!--                                <label th:if="${ad.photos.size() > 1}" th:for="switch + ${(ad.photos.get(1).url).substring(49,85)}" th:id="control + ${(ad.photos.get(1).url).substring(49,85)}"></label>-->
+<!--                                <label th:if="${ad.photos.size() > 2}" th:for="switch + ${(ad.photos.get(2).url).substring(49,85)}" th:id="control + ${(ad.photos.get(2).url).substring(49,85)}"></label>-->
+<!--                                <label th:if="${ad.photos.size() > 3}" th:for="switch + ${(ad.photos.get(3).url).substring(49,85)}" th:id="control + ${(ad.photos.get(3).url).substring(49,85)}"></label>-->
+<!--                                <label th:if="${ad.photos.size() > 4}" th:for="switch + ${(ad.photos.get(4).url).substring(49,85)}" th:id="control + ${(ad.photos.get(4).url).substring(49,85)}"></label>-->
+<!--                            </div>-->
+
+<!--                            <div th:if="${ad.photos.size() == 2 }" class="externals-wrapper">-->
+<!--                                <label th:if="${ad.photos.size() == 2 }" th:for="switch + ${(ad.photos.get(1).url).substring(49,85)}" th:id="external + ${(ad.photos.get(1).url).substring(49,85)}"></label>-->
+<!--                                <label th:if="${ad.photos.size() == 2 }" th:for="switch + ${(ad.photos.get(0).url).substring(49,85)}" th:id="external + ${(ad.photos.get(0).url).substring(49,85)}"></label>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+<!--                        <div th:id="actives + ${(ad.photos.get(0).url).substring(49,85)}" class="actives">-->
+<!--                            <label th:if="${ad.photos.size() > 0}" th:for="switch + ${(ad.photos.get(0).url).substring(49,85)}" th:id="active + ${(ad.photos.get(0).url).substring(49,85)}"></label>-->
+<!--                            <label th:if="${ad.photos.size() > 1}" th:for="switch + ${(ad.photos.get(1).url).substring(49,85)}" th:id="active + ${(ad.photos.get(1).url).substring(49,85)}"></label>-->
+<!--                            <label th:if="${ad.photos.size() > 2}" th:for="switch + ${(ad.photos.get(2).url).substring(49,85)}" th:id="active + ${(ad.photos.get(2).url).substring(49,85)}"></label>-->
+<!--                            <label th:if="${ad.photos.size() > 3}" th:for="switch + ${(ad.photos.get(3).url).substring(49,85)}" th:id="active + ${(ad.photos.get(3).url).substring(49,85)}"></label>-->
+<!--                            <label th:if="${ad.photos.size() > 4}" th:for="switch + ${(ad.photos.get(4).url).substring(49,85)}" th:id="active + ${(ad.photos.get(4).url).substring(49,85)}"></label>-->
+
+<!--                        </div>-->
+<!--                    </article>-->
+<!--                </div>-->
+<!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+
+    <table id="teeth-table">
+<!--        <thead>-->
+<!--            <tr>-->
+<!--                <th>-->
+
+<!--                </th>-->
+<!--            </tr>-->
+<!--        </thead>-->
+        <tbody>
+        <tr>
+            <td th:each="tooth, iStat : ${upperTeeth}"
+                th:style="${iStat.odd}? 'font-weight: bold;'"
+                th:alt-title="${tooth.description}"
+                th:height="30"
+                th:width="20"
+                th:title="#{'description.teeth.d' + ${tooth.index.toString().substring(1)}}"
+            >          <!--"${iStat.even}? 'even' : 'odd'"-->
+
+
+
+
+
+
+                <div class="teeth-container">
+                    <div th:if="${tooth.surfaces!=null && tooth.surfaces.size() > 0}" th:class="'tooth-surface ' + ${tooth.surfaces.get(0).toString().toLowerCase()} + '-surface' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right') + (${tooth.frontal} ? ' frontal-group' : '')" th:title="${tooth.name.toString().toLowerCase().replace('_',' ')} + ('(' + ${tooth.index.toString()} + '): ') + ${tooth.surfaces.get(0).toString().toLowerCase()} + ' surface'"></div>
+                    <div th:if="${tooth.surfaces!=null && tooth.surfaces.size() > 1}" th:class="'tooth-surface ' + ${tooth.surfaces.get(1).toString().toLowerCase()} + '-surface' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right') + (${tooth.frontal} ? ' frontal-group' : '')" th:title="${tooth.name.toString().toLowerCase().replace('_',' ')} + ('(' + ${tooth.index.toString()} + '): ') + ${tooth.surfaces.get(1).toString().toLowerCase()} + ' surface'"></div>
+                    <div th:if="${tooth.surfaces!=null && tooth.surfaces.size() > 2}" th:class="'tooth-surface ' + ${tooth.surfaces.get(2).toString().toLowerCase()} + '-surface' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right') + (${tooth.frontal} ? ' frontal-group' : '')" th:title="${tooth.name.toString().toLowerCase().replace('_',' ')} + ('(' + ${tooth.index.toString()} + '): ') + ${tooth.surfaces.get(2).toString().toLowerCase()} + ' surface'"></div>
+                    <div th:if="${tooth.surfaces!=null && tooth.surfaces.size() > 3}" th:class="'tooth-surface ' + ${tooth.surfaces.get(3).toString().toLowerCase()} + '-surface' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right') + (${tooth.frontal} ? ' frontal-group' : '')" th:title="${tooth.name.toString().toLowerCase().replace('_',' ')} + ('(' + ${tooth.index.toString()} + '): ') + ${tooth.surfaces.get(3).toString().toLowerCase()} + ' surface'"></div>
+                    <div th:if="${tooth.surfaces!=null && tooth.surfaces.size() > 4}" th:class="'tooth-surface ' + ${tooth.surfaces.get(4).toString().toLowerCase()} + '-surface' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right') + (${tooth.frontal} ? ' frontal-group' : '')" th:title="${tooth.name.toString().toLowerCase().replace('_',' ')} + ('(' + ${tooth.index.toString()} + '): ') + ${tooth.surfaces.get(4).toString().toLowerCase()} + ' surface'"></div>
+
+
+
+                    <div th:if="${tooth.index>10 && tooth.index<20}" class="upper-roots-container">
+
+                        <div th:if="${tooth.roots!=null && tooth.roots.size() >= 1}"
+                             th:class="(${tooth.roots.get(0).localizations!=null && tooth.roots.get(0).localizations.size()==1} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + '-root') : (${tooth.roots.get(0).localizations!=null && tooth.roots.get(0).localizations.size()==2} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(0).localizations.get(1).toString().toLowerCase()} + '-root') : 'standalone-root')) + ' upper-root' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right')"
+                             th:title="${tooth.roots.get(0).localizations == null} ? ('standalone root(' + ${tooth.index} + ')') : (${tooth.roots.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')') : ((${tooth.roots.get(0).localizations.size() == 2} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).localizations.get(1).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')'))))"
+                        >
+
+                            <div th:if="${tooth.roots.get(0).channels!=null}" class="channels-container">
+                                <div th:if="${tooth.roots.get(0).channels.size() > 1}" th:class="(${tooth.roots.get(0).channels.get(1).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(0).channels.get(1).localizations.size() > 1} ?  (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(0).channels.get(1).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(0).channels.get(1).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).channels.get(1).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                                <div th:if="${tooth.roots.get(0).channels.size() > 0}" th:class="(${tooth.roots.get(0).channels.get(0).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(0).channels.get(0).localizations.size() > 1} ?  (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(0).channels.get(0).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(0).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                        </div>
+
+                        <div th:if="${tooth.roots!=null && tooth.roots.size() >= 2}"
+                             th:class="(${tooth.roots.get(1).localizations!=null && tooth.roots.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + '-root') : (${tooth.roots.get(1).localizations.size()==2} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(1).localizations.get(1).toString().toLowerCase()} + '-root') : 'standalone-root')) + ' upper-root' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right')"
+                             th:title="${tooth.roots.get(1).localizations == null} ? ('standalone root(' + ${tooth.index} + ')') : (${tooth.roots.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')') : ((${tooth.roots.get(1).localizations.size() == 2} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).localizations.get(1).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')'))))"
+                        >
+
+                            <div th:if="${tooth.roots.get(1).channels!=null}" class="channels-container">
+                                <div th:if="${tooth.roots.get(1).channels.size() > 1}" th:class="(${tooth.roots.get(1).channels.get(1).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(1).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(1).channels.get(1).localizations.size() > 1} ?  (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(1).channels.get(1).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(1).channels.get(1).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).channels.get(1).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                                <div th:if="${tooth.roots.get(1).channels.size() > 0}" th:class="(${tooth.roots.get(1).channels.get(0).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(1).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(1).channels.get(0).localizations.size() > 1} ?  (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(1).channels.get(0).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(1).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                        </div>
+
+                        <div th:if="${tooth.roots!=null && tooth.roots.size() >= 3}"
+                             th:class="(${tooth.roots.get(2).localizations!=null && tooth.roots.get(2).localizations.size() > 0} ? (${tooth.roots.get(2).localizations.get(0).toString().toLowerCase()} + '-root') : (${tooth.roots.get(2).localizations.size()==2} ? (${tooth.roots.get(2).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(2).localizations.get(1).toString().toLowerCase()} + '-root') : 'standalone-root')) + ' upper-root' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right')"
+                             th:title="${tooth.roots.get(2).localizations == null} ? ('standalone root(' + ${tooth.index} + ')') : (${tooth.roots.get(2).localizations.size() == 1} ? (${tooth.roots.get(2).localizations.get(0).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')') : ((${tooth.roots.get(2).localizations.size() == 2} ? (${tooth.roots.get(2).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(2).localizations.get(1).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')'))))"
+                        >
+
+                            <div th:if="${tooth.roots.get(2).channels!=null}" class="channels-container">
+                                <div th:if="${tooth.roots.get(2).channels.size() > 1}" th:class="(${tooth.roots.get(2).channels.get(1).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(2).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(2).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(2).channels.get(1).localizations.size() > 1} ?  (${tooth.roots.get(2).channels.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(2).channels.get(1).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(2).channels.get(1).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(2).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(2).channels.get(1).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(2).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(2).channels.get(1).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                                <div th:if="${tooth.roots.get(2).channels.size() > 0}" th:class="(${tooth.roots.get(2).channels.get(0).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(2).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(2).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(2).channels.get(0).localizations.size() > 1} ?  (${tooth.roots.get(2).channels.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(2).channels.get(0).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(2).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(2).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(2).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(2).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(2).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div th:if="${tooth.index>20 && tooth.index<30}" class="upper-roots-container">
+
+                        <div th:if="${tooth.roots!=null && tooth.roots.size() >= 3}"
+                             th:class="(${tooth.roots.get(2).localizations!=null && tooth.roots.get(2).localizations.size() >= 1} ? (${tooth.roots.get(2).localizations.get(0).toString().toLowerCase()} + '-root') : (${tooth.roots.get(2).localizations.size()==2} ? (${tooth.roots.get(2).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(2).localizations.get(1).toString().toLowerCase()} + '-root') : 'standalone-root')) + ' upper-root' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right')"
+                             th:title="${tooth.roots.get(2).localizations == null} ? ('standalone root(' + ${tooth.index} + ')') : (${tooth.roots.get(2).localizations.size() == 1} ? (${tooth.roots.get(2).localizations.get(0).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')') : ((${tooth.roots.get(2).localizations.size() == 2} ? (${tooth.roots.get(2).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(2).localizations.get(1).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')'))))"
+                        >
+
+                            <div th:if="${tooth.roots.get(0).channels!=null}" class="channels-container">
+                                <div th:if="${tooth.roots.get(2).channels.size() > 1}" th:class="(${tooth.roots.get(2).channels.get(1).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(2).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(2).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(2).channels.get(1).localizations.size() > 1} ?  (${tooth.roots.get(2).channels.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(2).channels.get(1).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(2).channels.get(1).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(2).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(2).channels.get(1).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(2).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(2).channels.get(1).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                                <div th:if="${tooth.roots.get(2).channels.size() > 0}" th:class="(${tooth.roots.get(2).channels.get(0).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(2).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(2).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(2).channels.get(0).localizations.size() > 1} ?  (${tooth.roots.get(2).channels.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(2).channels.get(0).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(2).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(2).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(2).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(2).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(2).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                        </div>
+
+                        <div th:if="${tooth.roots!=null && tooth.roots.size() >= 2}"
+                             th:class="(${tooth.roots.size() >= 2 && tooth.roots.get(1).localizations!=null && tooth.roots.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + '-root') : (${tooth.roots.get(1).localizations.size()==2} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(1).localizations.get(1).toString().toLowerCase()} + '-root') : 'standalone-root')) + ' upper-root' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right')"
+                             th:title="${tooth.roots.size()} > 1 ? (${tooth.roots.get(1).localizations == null} ? ('standalone root(' + ${tooth.index} + ')') : (${tooth.roots.get(1).localizations!=null && tooth.roots.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')') : ((${tooth.roots.get(1).localizations.size() == 2} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).localizations.get(1).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')'))))) : (${tooth.roots.get(0).localizations == null} ? ('standalone root(' + ${tooth.index} + ')'))"
+                        >
+
+                            <div th:if="${tooth.roots.size() > 1 && tooth.roots.get(1).channels!=null}" class="channels-container">
+                                <div th:if="${tooth.roots.get(1).channels.size() > 1}" th:class="(${tooth.roots.get(1).channels.get(1).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(1).channels.get(1).localizations.size() > 1} ?  (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(1).channels.get(1).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(1).channels.get(1).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).channels.get(1).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                                <div th:if="${tooth.roots.get(1).channels.size() > 0}" th:class="(${tooth.roots.get(1).channels.get(0).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(1).channels.get(0).localizations.size() > 1} ?  (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(1).channels.get(0).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(1).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                            <div th:if="${tooth.roots.size() == 1 && tooth.roots.get(0).channels!=null}" class="channels-container" >
+                                <div th:if="${tooth.roots.get(0).channels.size() == 1}" class="standalone-channel channel" th:title="${tooth.roots.get(0).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                        </div>
+<!--                        <div th:if="${tooth.roots!=null && tooth.roots.size() >= 1}" th:class="(${tooth.roots.get(0).localizations!=null && tooth.roots.get(0).localizations.size() > 0} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + '-root') : '') + ' upper-root' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right')" th:title="${tooth.roots.get(0).localizations == null} ? ('standalone root(' + ${tooth.index} + ')') : (${tooth.roots.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')') : ((${tooth.roots.get(0).localizations.size() == 2} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).localizations.get(1).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')'))))">-->
+                        <div th:if="${tooth.roots!=null && tooth.roots.size() >= 1}"
+                             th:class="(${tooth.roots.get(0).localizations!=null && tooth.roots.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + '-root') : (${tooth.roots.get(0).localizations!= null && tooth.roots.get(0).localizations.size()==2} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(0).localizations.get(1).toString().toLowerCase()} + '-root') : 'standalone-root')) + ' upper-root' + (${tooth.index>10 && tooth.index<20} ? ' upper-left' : ' upper-right')"
+                             th:title="${tooth.roots.get(0).localizations == null} ? ('standalone root(' + ${tooth.index} + ')') : (${tooth.roots.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')') : ((${tooth.roots.get(0).localizations.size() == 2} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).localizations.get(1).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')'))))"
+                        >
+
+                            <div th:if="${tooth.roots.get(0).channels!=null}" class="channels-container">
+                                <div th:if="${tooth.roots.get(0).channels.size() > 1}" th:class="(${tooth.roots.get(0).channels.get(1).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(0).channels.get(1).localizations.size() > 1} ?  (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(0).channels.get(1).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(0).channels.get(1).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).channels.get(1).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                                <div th:if="${tooth.roots.get(0).channels.size() > 0}" th:class="(${tooth.roots.get(0).channels.get(0).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(0).channels.get(0).localizations.size() > 1} ?  (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(0).channels.get(0).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(0).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                        </div>
+<!--                    </div>-->
+
+                </div>
+
+
+                </div>
+
+
+
+            </td>
+        </tr>
+
+        <tr th:id="empty-cells">
+            <td> </td>
+        </tr>
+
+
+        <tr><!--th:text="${tooth.index}"-->
+            <td th:each="tooth, iStat : ${downTeeth}"
+
+                th:style="${iStat.odd}? 'font-weight: bold;'"
+                th:height="30"
+                th:title="#{'description.teeth.d' + ${tooth.index.toString().substring(1)}}"><!--${iStat.even}? 'even' : 'odd'"          #{'description.teeth.d' + (${iStat.index}+1)}       -->
+
+                <div class="teeth-container">
+                    <div th:if="${tooth.surfaces!=null && tooth.surfaces.size() > 0}" th:class="'tooth-surface ' + ${tooth.surfaces.get(0).toString().toLowerCase()} + '-surface' + (${tooth.index>30 && tooth.index<40} ? ' down-left' : ' down-right') + (${tooth.frontal} ? ' frontal-group' : '')" th:title="${tooth.name.toString().toLowerCase().replace('_',' ')} + ('(' + ${tooth.index.toString()} + '): ') + ${tooth.surfaces.get(0).toString().toLowerCase()} + ' surface'"></div>
+                    <div th:if="${tooth.surfaces!=null && tooth.surfaces.size() > 1}" th:class="'tooth-surface ' + ${tooth.surfaces.get(1).toString().toLowerCase()} + '-surface' + (${tooth.index>30 && tooth.index<40} ? ' down-left' : ' down-right') + (${tooth.frontal} ? ' frontal-group' : '')" th:title="${tooth.name.toString().toLowerCase().replace('_',' ')} + ('(' + ${tooth.index.toString()} + '): ') + ${tooth.surfaces.get(1).toString().toLowerCase()} + ' surface'"></div>
+                    <div th:if="${tooth.surfaces!=null && tooth.surfaces.size() > 2}" th:class="'tooth-surface ' + ${tooth.surfaces.get(2).toString().toLowerCase()} + '-surface' + (${tooth.index>30 && tooth.index<40} ? ' down-left' : ' down-right') + (${tooth.frontal} ? ' frontal-group' : '')" th:title="${tooth.name.toString().toLowerCase().replace('_',' ')} + ('(' + ${tooth.index.toString()} + '): ') + ${tooth.surfaces.get(2).toString().toLowerCase()} + ' surface'"></div>
+                    <div th:if="${tooth.surfaces!=null && tooth.surfaces.size() > 3}" th:class="'tooth-surface ' + ${tooth.surfaces.get(3).toString().toLowerCase()} + '-surface' + (${tooth.index>30 && tooth.index<40} ? ' down-left' : ' down-right') + (${tooth.frontal} ? ' frontal-group' : '')" th:title="${tooth.name.toString().toLowerCase().replace('_',' ')} + ('(' + ${tooth.index.toString()} + '): ') + ${tooth.surfaces.get(3).toString().toLowerCase()} + ' surface'"></div>
+                    <div th:if="${tooth.surfaces!=null && tooth.surfaces.size() > 4}" th:class="'tooth-surface ' + ${tooth.surfaces.get(4).toString().toLowerCase()} + '-surface' + (${tooth.index>30 && tooth.index<40} ? ' down-left' : ' down-right') + (${tooth.frontal} ? ' frontal-group' : '')" th:title="${tooth.name.toString().toLowerCase().replace('_',' ')} + ('(' + ${tooth.index.toString()} + '): ') + ${tooth.surfaces.get(4).toString().toLowerCase()} + ' surface'"></div>
+
+                    <div th:if="${tooth.index>40}" class="roots-container">
+                        <div th:if="${tooth.roots!=null}" th:class="(${tooth.roots.size() > 1} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + '-root') : 'standalone-root') + ' root' + (${tooth.index>30 && tooth.index<40} ? ' down-left' : ' down-right')" th:title="${tooth.roots.get(0).localizations == null} ? ('standalone root(' + ${tooth.index} + ')') : (${tooth.roots.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')') : ((${tooth.roots.get(0).localizations.size() == 2} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).localizations.get(1).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')'))))">
+                            <div th:if="${tooth.roots.get(0).channels!=null}" class="channels-container">
+                                <div th:if="${tooth.roots.get(0).channels.size() > 1}" th:class="(${tooth.roots.get(0).channels.get(1).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(0).channels.get(1).localizations.size() > 1} ?  (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(0).channels.get(1).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(0).channels.get(1).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).channels.get(1).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                                <div th:if="${tooth.roots.get(0).channels.size() > 0}" th:class="(${tooth.roots.get(0).channels.get(0).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(0).channels.get(0).localizations.size() > 1} ?  (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(0).channels.get(0).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(0).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                        </div>
+                        <div th:if="${tooth.roots!=null && tooth.roots.size() > 1}" th:class="(${tooth.roots.get(1).localizations.size() > 0} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + '-root') : '') + ' root' + (${tooth.index>30 && tooth.index<40} ? ' down-left' : ' down-right')" th:title="${tooth.roots.get(1).localizations == null} ? ('standalone root(' + ${tooth.index} + ')') : (${tooth.roots.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')') : ((${tooth.roots.get(1).localizations.size() == 2} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).localizations.get(1).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')'))))">
+                            <div th:if="${tooth.roots.get(1).channels!=null}" class="channels-container">
+                                <div th:if="${tooth.roots.get(1).channels.size() > 1}" th:class="(${tooth.roots.get(1).channels.get(1).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(1).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(1).channels.get(1).localizations.size() > 1} ?  (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(1).channels.get(1).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(1).channels.get(1).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).channels.get(1).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                                <div th:if="${tooth.roots.get(1).channels.size() > 0}" th:class="(${tooth.roots.get(1).channels.get(0).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(1).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(1).channels.get(0).localizations.size() > 1} ?  (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(1).channels.get(0).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(1).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div th:if="${tooth.index>30 && tooth.index<40}" class="roots-container">
+                        <div th:if="${tooth.roots!=null}" th:class="(${tooth.roots.size() > 1} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + '-root') : 'standalone-root') + ' root' + (${tooth.index>30 && tooth.index<40} ? ' down-left' : ' down-right')" th:title="${tooth.roots.size()} > 1 ? (${tooth.roots.get(1).localizations == null} ? ('standalone root(' + ${tooth.index} + ')') : (${tooth.roots.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')') : ((${tooth.roots.get(1).localizations.size() == 2} ? (${tooth.roots.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).localizations.get(1).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')'))))) : (${tooth.roots.get(0).localizations == null} ? ('standalone root(' + ${tooth.index} + ')'))">
+                            <div th:if="${tooth.roots.size() > 1 && tooth.roots.get(1).channels!=null}" class="channels-container">
+                                <div th:if="${tooth.roots.get(1).channels.size() > 1}" th:class="(${tooth.roots.get(1).channels.get(1).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(1).channels.get(1).localizations.size() > 1} ?  (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(1).channels.get(1).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(1).channels.get(1).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).channels.get(1).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                                <div th:if="${tooth.roots.get(1).channels.size() > 0}" th:class="(${tooth.roots.get(1).channels.get(0).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(1).channels.get(0).localizations.size() > 1} ?  (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(1).channels.get(0).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(1).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(1).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(1).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                            <div th:if="${tooth.roots.size() == 1 && tooth.roots.get(0).channels!=null}" class="channels-container" >
+                                <div th:if="${tooth.roots.get(0).channels.size() == 1}" class="standalone-channel channel" th:title="${tooth.roots.get(0).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                        </div>
+                        <div th:if="${tooth.roots!=null && tooth.roots.size() > 1}" th:class="(${tooth.roots.get(0).localizations.size() > 0} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + '-root') : '') + ' root' + (${tooth.index>30 && tooth.index<40} ? ' down-left' : ' down-right')" th:title="${tooth.roots.get(0).localizations == null} ? ('standalone root(' + ${tooth.index} + ')') : (${tooth.roots.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')') : ((${tooth.roots.get(0).localizations.size() == 2} ? (${tooth.roots.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).localizations.get(1).toString().toLowerCase()} + ' root(' + ${tooth.index} + ')'))))">
+                            <div th:if="${tooth.roots.get(0).channels!=null}" class="channels-container">
+                                <div th:if="${tooth.roots.get(0).channels.size() > 1}" th:class="(${tooth.roots.get(0).channels.get(1).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(0).channels.get(1).localizations.size() > 1} ?  (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(0).channels.get(1).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(0).channels.get(1).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(1).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(1).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).channels.get(1).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                                <div th:if="${tooth.roots.get(0).channels.size() > 0}" th:class="(${tooth.roots.get(0).channels.get(0).localizations == null} ? 'standalone-channel' : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-channel') : (${tooth.roots.get(0).channels.get(0).localizations.size() > 1} ?  (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + ${tooth.roots.get(0).channels.get(0).localizations.get(1).toString().toLowerCase()} + '-channel') : ''))) + ' channel'" th:title="${tooth.roots.get(0).channels.get(0).localizations == null} ? ('standalone channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.size() == 1} ? (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')') : (${tooth.roots.get(0).channels.get(0).localizations.get(0).toString().toLowerCase()} + '-' + ${tooth.roots.get(0).channels.get(0).localizations.get(1).toString().toLowerCase()} + ' channel(' + ${tooth.index} + ')'))"><div class="click-point"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+<!--                <table th:object="${tooth}">-->
+<!--                    <tbody>-->
+<!--                    <tr th:if="${tooth.surfaces!=null}">-->
+<!--                        <td th:each=" surface, iStat : ${tooth.surfaces}"></td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+
+             </td>
+        </tr>
+
+        <tr>
+
+        </tr>
+        </tbody>
+<!--        <tr th:each="tooth, iStat : ${upperTeeth}"-->
+<!--            th:style="${iStat.odd}? 'font-weight: bold;'"-->
+<!--            th:alt-title="${iStat.even}? 'even' : 'odd'">-->
+<!--            <td th:text="${tooth.name}">-->
+
+<!--            </td>-->
+<!--        </tr>-->
+
+<!--        <tr th:each="tooth, iStat : ${downTeeth}"-->
+<!--            th:style="${iStat.odd}? 'font-weight: bold;'"-->
+<!--            th:alt-title="${iStat.even}? 'even' : 'odd'">-->
+<!--            <td th:text="${tooth.name}">-->
+
+<!--            </td>-->
+<!--        </tr>-->
+    </table>
+
+<div class="target-container">
+    <span>
+        <th:button id="resetTarget" class="btn btn-light" title="reset target">×</th:button>
+    </span>
+
+    <span>
+        <div class="form-group row">
+            <span class="title-of-target"><label class="col-sm-3">Title</label></span>
+            <span class="col-sm-11"><input id="targetTitle" class="form-control form-control-createAd-custom patient-creation-form" name="title" placeholder="title of target" value="" required="required"/></span>
+            <span id="targetTitleError" class="alert alert-danger col-sm-4" style="display:none"></span>
+        </div>
+    </span>
+
+    <span>
+        <div class="form-group row">
+            <span class="state-of-target"><label class="col-sm-3">State</label></span>
+            <span class="col-sm-11"><input id="targetState" class="form-control form-control-createAd-custom patient-creation-form" name="state" placeholder="state of target" value="" required="required"/></span>
+            <span id="targetStateError" class="alert alert-danger col-sm-4" style="display:none"></span>
+        </div>
+    </span>
+
+    <div class="target-element-container">
+        <span>
+            <div class="target-itself"></div>
+        </span>
+    </div>
+
+    <span>
+        <th:button id="persistTarget" class="btn btn-light">Persist Changes</th:button>
+    </span>
+
+</div>
+
+<div class="xrays-container">Xrays</div>
+
+</form>
+
+<span><img class="img043" th:src="@{/resources/img/card/043-3.png}"></span>
+<form th:object="${patientRsrch2}" action="/card/save" method="POST" enctype="utf8" >
+
+</form>
+
+<span><img class="img043" th:src="@{/resources/img/card/043-4.png}"></span>
+<form th:object="${doctorsDiary1}" action="/card/save" method="POST" enctype="utf8" >
+
+</form>
+
+<span><img class="img043" th:src="@{/resources/img/card/043-5.png}"></span>
+<form th:object="${doctorsDiary2}" action="/card/save" method="POST" enctype="utf8" >
+
+</form>
+
+<span><img class="img043" th:src="@{/resources/img/card/043-6.png}"></span>
+<form th:object="${plans}" action="/card/save" method="POST" enctype="utf8" >
+
+</form>
+
+<span><img class="img043" th:src="@{/resources/img/card/043-7.png}"></span>
+<form th:object="${agreement1}" action="/card/save" method="POST" enctype="utf8" >
+
+</form>
+<span><img class="img043" th:src="@{/resources/img/card/043-8.png}"></span>
+<form th:object="${agreement2}" action="/card/save" method="POST" enctype="utf8" >
+
+</form>
+
+
+
+
+
+<div id="pagesContainer">
+    <div id="firstPage-right-nav" class="pageOfCard" th:title="#{title.card.cover}">
+        <div class="verticalLabel">T I T L E</div>
+        <img class="img043-right-nav" th:src="@{/resources/img/card/043-1.png}">
+    </div>
+    <div id="secondPage-right-nav" class="pageOfCard" th:title="#{title.card.rsrch1}">
+        <div class="verticalLabel"># 2</div>
+        <div class="transpa-over-fon"></div>
+        <img class="img043-right-nav" th:src="@{/resources/img/card/043-2.png}">
+    </div>
+    <div id="thirdPage-right-nav" class="pageOfCard" th:title="#{title.card.rsrch2}">
+        <div class="verticalLabel"># 3</div>
+        <img class="img043-right-nav" th:src="@{/resources/img/card/043-3.png}">
+    </div>
+    <div id="fourthPage-right-nav" class="pageOfCard" th:title="#{title.card.diary1}">
+        <div class="verticalLabel"># 4</div>
+        <img class="img043-right-nav" th:src="@{/resources/img/card/043-4.png}">
+    </div>
+    <div id="fifthPage-right-nav" class="pageOfCard" th:title="#{title.card.diary2}">
+        <div class="verticalLabel"># 5</div>
+        <img class="img043-right-nav" th:src="@{/resources/img/card/043-5.png}">
+    </div>
+    <div id="sixthPage-right-nav" class="pageOfCard" th:title="#{title.card.plan}">
+        <div class="verticalLabel"># 6</div>
+        <img class="img043-right-nav" th:src="@{/resources/img/card/043-6.png}">
+    </div>
+    <div id="seventhPage-right-nav" class="pageOfCard" th:title="#{title.card.agreement1}">
+        <div class="verticalLabel"># 7</div>
+        <img class="img043-right-nav" th:src="@{/resources/img/card/043-7.png}">
+    </div>
+    <div id="eightsPage-right-nav" class="pageOfCard" th:title="#{title.card.agreement2}">
+        <div class="verticalLabel"># 8</div>
+        <img class="img043-right-nav" th:src="@{/resources/img/card/043-8.png}">
+    </div>
+</div>
+
+</body>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+<div th:replace="~{fragments/scripts :: imagesUploaderScript}"></div>
+
+
+
+
+<!--<script type="text/javascript">-->
+<!--    // debugger;-->
+<!--    function calculate() {-->
+<!--        //alert("test");-->
+<!--        let p1 = $('input[name="x1"]').value;-->
+<!--        let p2 = $('input[name="x2"]').value;-->
+<!--        //let op = $('input[name="result"]').value;-->
+<!--        $.ajax({-->
+<!--            //url: "", //"@Url.Action('name-of-controller' , 'calculate',)",-->
+
+<!--            data: {par1: p1,-->
+<!--                par2: p2,-->
+<!--            },-->
+<!--            success: function () {-->
+<!--                let res = document.getElementById('res');-->
+<!--                $('#res').val('well done');-->
+<!--                alert('ok');-->
+<!--            },-->
+<!--            error: function () {-->
+
+<!--            }-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+
+
+<script type="text/javascript">
+
+    $('#firstPage-right-nav').on('click', function () {
+        $('html, body').animate({'scrollTop': 0}, 500);
+    });
+
+    $('#secondPage-right-nav').on('click', function () {
+        //$(window).scrollTop($(window).scrollTop() + 500);
+        // var currentScrollTop = $(window).scrollTop();
+        // $(window).animate({'scrollTop': (currentScrollTop + 3500)}, 400);
+        //var currentScrollTop = $(window).scrollTop();
+        $('html, body').animate({'scrollTop': 783}, 500);
+    });
+
+    $('#thirdPage-right-nav').on('click', function () {
+        $('html, body').animate({'scrollTop': 1518}, 500);
+    });
+
+    $('#fourthPage-right-nav').on('click', function () {
+        $('html, body').animate({'scrollTop': 2251}, 500);
+    });
+
+    $('#fifthPage-right-nav').on('click', function () {
+        $('html, body').animate({'scrollTop': 2999}, 500);
+    });
+
+    $('#sixthPage-right-nav').on('click', function () {
+        $('html, body').animate({'scrollTop': 3753}, 500);
+    });
+
+    $('#seventhPage-right-nav').on('click', function () {
+        $('html, body').animate({'scrollTop': 4501}, 500);
+    });
+
+    $('#eightsPage-right-nav').on('click', function () {
+        $('html, body').animate({'scrollTop': 5244}, 500);
+    });
+
+
+
+
+
+    let str = "я учу джаваскрипт!";
+    function setFirstLettersToUpperCase(str) {
+        str = str[0].toUpperCase() + str.substring(1); //set first letter to upp case
+        for (let i = 0; i < str.length; i++) {
+            if (str[i] === ' ') {
+                str = str.substring(0, i+1) + str[i + 1].toUpperCase() + str.substring(i+2);
+            }
+        }
+        return str;
+    }
+
+    function setFirstLettersToUpperCaseByForEach(str) {
+        let res = "";
+        str.split(' ').forEach(function(word) {
+            res += word[0].toUpperCase() + word.substring(1) + " ";
+        });
+        return res.trim();
+    }
+
+    //alert(setFirstLettersToUpperCaseByForEach(str));
+
+
+    $(document).ready(function () {
+        let scrollHeight = Math.max(
+            document.body.scrollHeight, document.documentElement.scrollHeight,
+            document.body.offsetHeight, document.documentElement.offsetHeight,
+            document.body.clientHeight, document.documentElement.clientHeight
+        );
+
+        function getBodyScrollTop()
+        {
+            return self.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || (document.body && document.body.scrollTop);
+        }
+
+        $(document).on('scroll', function () {
+            // alert(getBodyScrollTop());
+        });
+
+
+        // alert( 'Высота с учетом прокрутки: ' + scrollHeight + '\n' +
+        // document.body.scrollHeight + '\n' + document.documentElement.scrollHeight + '\n' +
+        //     document.body.offsetHeight + '\n' + document.documentElement.offsetHeight + '\n' +
+        //     document.body.clientHeight + '\n' + document.documentElement.clientHeight
+        // );
+    });
+
+    let isCurrentCardNew = parseBool($('#isCardNew').val());
+    let lastReceivedRegistryNumb;
+    let lastGeneratedRegistryNumb;
+
+    let isReceivedRegNumbUnique = false;
+    let isGeneratedRegNumbUnique = false;
+
+
+    function setLastReceivedRegistryNumb(regNumb) {
+        lastReceivedRegistryNumb = regNumb;
+    }
+    function setLastGeneratedRegistryNumb(regNumb) {
+        lastGeneratedRegistryNumb = regNumb;
+    }
+
+
+    $(document).ready(function () {
+        checkAllFieldsIfNotEmpty();
+        if (isAnythingChanged) { resetAllChangesButtonActivate();}
+        setLastReceivedRegistryNumb(registryNumber.val());
+        if (isCurrentCardNew) {isReceivedRegNumbUnique = true; }
+        //alert(isCurrentCardNew);
+        //console.log(isCurrentCardNew);
+        //let now = new Date();
+        //alert( now.getDate() + " "  + now.getFullYear() + " " + now.getMonth());
+    });
+
+
+    function generateNewRegistryNumber() {
+        let BILLION = 1000000000000000000;
+        let res = (Math.random())*BILLION;
+        //res = res.toFixed(0);
+        //console.log("выхлоп рандомайзера:" + res);
+        if (res < 0) { res = res * -1; }
+
+        let COEFFICIENT = lastReceivedRegistryNumb.length - 8;  //8 = (yyyyMMdd).length
+        //console.log(lastReceivedRegistryNumb);
+        for (let i = 0; i < COEFFICIENT; i++) {
+            BILLION = BILLION/10;
+        }
+        res = res/ BILLION;
+        //console.log(res);  //first check
+
+        let now = new Date();
+        let year = now.getFullYear().toString();
+        let month = ( now.getMonth() + 1 ).toString();
+        if (month.length < 2) { month = "0" + month;}
+        let day = now.getDate().toString();
+        if (day.length < 2) { day = "0" + day;}
+
+        let complex = "" + year + month + day + res;
+        complex = complex.substring(0, complex.indexOf('.'));
+
+        setLastGeneratedRegistryNumb(complex);
+        //alert(complex);
+    }
+
+    //
+    let tempDataSize = 0;
+    let tempData = [];
+    //
+
+    let isNamesakeChoosen = false;
+    let isAnythingChanged = false;
+
+    let isLinaStomCredentialsSetUp = false;
+    let isReturned = false;
+    let dataSize = 0;
+
+    //let optNamesakes = $('.namesakes');
+    let year = $('input[name="year"]');
+    let registryNumber = $('input[name="registryNumber"]');
+
+    let clinicName = $('input[name="clinicName"]');
+    let clinicAddress = $('input[name="clinicAddress"]');
+    let clinicEdrpou = $('input[name="clinicEdrpou"]');
+
+    let growth = $('#growth-input');
+    let transferred = $('#transferred-input');
+    let complaints = $('#complaints-input');
+    let diagnosis = $('#diagnosis-input');
+
+    let address = $('input[name="address"]');
+    let phone = $('input[name="phone"]');
+    let birthDay = $('input[name="strReprOfBirthDay"]');
+    let gender = $('select[name="gender"]');
+
+    let firstNameInput = $('input[name="firstName"]');
+    let secondNameInput = $('input[name="secondName"]');
+
+    let lastNameInput = $('input[name="lastName"]');
+    let spanDropdownLastNames = $('#span-dropdown-last-names');
+    let dropdownLastNames = $('#dropdown-last-names');
+    function dropdownLastNamesNthChild(nth) {return $('#dropdown-last-names:nth-child('+ nth +')');}
+
+    //
+    let resetAllChangesButton = $('#resetAllFields');
+    let resetClinicCredentialsButton = $('#resetClinicCredentials');
+    let setLinaStomCredentialsButton = $('#linast');
+
+    let revertPreviousCommitButton = $('#revertPreviousCommit');
+
+    let areaClinicCredentials = $('#area-clinic-credentials');
+    let areaTitlePage = $('#area-title-page');
+
+    let titleOfPage = $('#title-of-page');
+
+    $('input').on('keyup', function () {
+        checkAllFieldsIfNotEmpty();
+        if (isAnythingChanged) {
+            resetAllChangesButtonActivate();
+        } else {
+            resetAllChangesButtonDeactivate();
+        }
+
+    });
+
+
+    //history
+
+    let commit = {
+        id:0,
+        accesskey:135,
+        clinic:"none"
+    };
+    let editionHistory = [];
+
+    function saveCommitToHistory(args) {
+        //alert(lastNameInput.val() instanceof);
+        //console.log(lastNameInput.val()==="");
+        console.log(clinicName.val() !== "" ||
+            clinicAddress.val() !== "" ||
+            clinicEdrpou.val() !== "" ||
+
+            lastNameInput.val() !== "" ||
+            firstNameInput.val() !== "" ||
+            secondNameInput.val() !== "" ||
+
+            //gender.val() !== true ||
+            birthDay.val() !== "" ||
+
+            address.val() !== "" ||
+            phone.val() !== "" ||
+
+            diagnosis.val() !== "" ||
+            complaints.val() !== "" ||
+            transferred.val() !== "" ||
+            growth.val() !== "");
+        //debugger;
+        let res = commit;
+        res.id=1;
+        res.clinic="linastom";
+        editionHistory[0] = res;
+    }
+
+
+    resetAllChangesButton.on('mouseover', function () {
+        if (isAnythingChanged) {
+            highlightTitlePage();
+        }
+    });
+    resetAllChangesButton.on('mouseleave', function () {
+        unhighlightTitlePage();
+    });
+    resetAllChangesButton.on('click', function () {
+        resetAllChanges();
+        resetAllChangesButtonDeactivate();
+        resetClinicCredButtonDeactivate();
+        unhighlightTitlePage();
+        isAnythingChanged = false;
+        isLinaStomCredentialsSetUp = false;
+    });
+
+    function highlightTitlePage() {
+        areaTitlePage.removeClass("hidden");
+    }
+    function unhighlightTitlePage() {
+        areaTitlePage.addClass("hidden");
+    }
+
+    function resetAllChangesButtonActivate() {
+        resetAllChangesButton.removeClass("btn-light");
+        resetAllChangesButton.addClass("btn-outline-warning");
+    }
+    function resetAllChangesButtonDeactivate() {
+        resetAllChangesButton.removeClass("btn-outline-warning");
+        resetAllChangesButton.addClass("btn-light");
+    }
+
+    function resetAllChanges() {
+        clinicName.val("");
+        clinicAddress.val("");
+        clinicEdrpou.val("");
+
+        lastNameInput.val("");
+        firstNameInput.val("");
+        secondNameInput.val("");
+
+        //gender.val(true);         // OPT
+        birthDay.val("");
+
+        address.val("");
+        phone.val("");
+
+        diagnosis.val("");
+        complaints.val("");
+        transferred.val("");
+        growth.val("");
+    }
+
+    function checkAllFieldsIfNotEmpty() {
+
+        if (clinicName.val().trim() !== "" ||
+        clinicAddress.val().trim() !== "" ||
+        clinicEdrpou.val().trim() !== "" ||
+
+        lastNameInput.val().trim() !== "" ||
+        firstNameInput.val().trim() !== "" ||
+        secondNameInput.val().trim() !== "" ||
+
+        //gender.val() !== true ||
+        birthDay.val().trim() !== "" ||
+
+        address.val().trim() !== "" ||
+        phone.val().trim() !== "" ||
+
+        diagnosis.val().trim() !== "" ||
+        complaints.val().trim() !== "" ||
+        transferred.val().trim() !== "" ||
+        growth.val().trim() !== "") {
+            isAnythingChanged = true;
+        } else {
+            isAnythingChanged = false;
+        }
+    }
+
+    // function checkAllFieldsExceptClinicCredentialsIfNotEmpty() {
+    //     if (lastNameInput.val() !== "" ||
+    //         firstNameInput.val() !== "" ||
+    //         secondNameInput.val() !== "" ||
+    //
+    //         //gender.val() !== true ||
+    //         birthDay.val() !== "" ||
+    //
+    //         address.val() !== "" ||
+    //         phone.val() !== "" ||
+    //
+    //         diagnosis.val() !== "" ||
+    //         complaints.val() !== "" ||
+    //         transferred.val() !== "" ||
+    //         growth.val() !== "") {
+    //         isAnythingChanged = true;
+    //     } else {
+    //         isAnythingChanged = false;
+    //     }
+    // }
+
+    setLinaStomCredentialsButton.on('click', function () {
+       setClinicCredentialsToLinaStom();
+       resetClinicCredButtonActivate();
+        resetAllChangesButtonActivate();
+       isLinaStomCredentialsSetUp = true;
+       isAnythingChanged = true;
+       areaClinicCredentials.addClass("hidden");
+
+
+    });
+    setLinaStomCredentialsButton.on('mouseover', function () {
+        if (!isLinaStomCredentialsSetUp) {
+            areaClinicCredentials.removeClass("hidden");
+        }
+    });
+    setLinaStomCredentialsButton.on('mouseleave', function () {
+        areaClinicCredentials.addClass("hidden");
+    });
+
+    resetClinicCredentialsButton.on('mouseover', function () {
+        if (resetClinicCredentialsButton.hasClass("btn-outline-warning")) {
+            areaClinicCredentials.removeClass("hidden");
+        }
+    });
+    resetClinicCredentialsButton.on('mouseleave', function () {
+            areaClinicCredentials.addClass("hidden");
+    });
+    resetClinicCredentialsButton.on('click', function () {
+
+        resetClinicCredentials();
+        resetClinicCredButtonDeactivate();
+
+        areaClinicCredentials.addClass("hidden");
+        isLinaStomCredentialsSetUp = false;
+        //debugger;
+        $(checkAllFieldsIfNotEmpty()).ready(function () {
+
+            if(!isAnythingChanged) {resetAllChangesButtonDeactivate();}  //OPT
+        });
+    });
+
+
+    function resetClinicCredButtonActivate() {
+        resetClinicCredentialsButton.removeClass("btn-light");
+        resetClinicCredentialsButton.addClass("btn-outline-warning");
+    }
+    function resetClinicCredButtonDeactivate() {
+        resetClinicCredentialsButton.removeClass("btn-outline-warning");
+        resetClinicCredentialsButton.addClass("btn-light");
+    }
+
+    clinicName.on('keyup', function () {
+        if (clinicName.val().trim().length > 0) {
+            resetClinicCredButtonActivate();
+        } else
+        if (!clinicName.val().trim().length > 0 &&
+            !clinicAddress.val().trim().length > 0 &&
+            !clinicEdrpou.val().trim().length > 0) {
+            resetClinicCredButtonDeactivate();
+        }
+
+        if(clinicName.val() !== "LinaStom ГАЦ М.М.") { isLinaStomCredentialsSetUp = false; }
+    });
+    clinicAddress.on('keyup', function () {
+        if (clinicAddress.val().trim().length > 0) {
+            resetClinicCredButtonActivate();
+        } else
+        if (!clinicAddress.val().trim().length > 0 &&
+            !clinicName.val().trim().length > 0 &&
+            !clinicEdrpou.val().trim().length > 0) {
+            resetClinicCredButtonDeactivate();
+        }
+
+        if(clinicAddress.val() !== "Іршава, Білецька 14/1") { isLinaStomCredentialsSetUp = false; }
+    });
+    clinicEdrpou.on('keyup', function () {
+        if (clinicEdrpou.val().trim().length > 0) {
+            resetClinicCredButtonActivate();
+        } else
+        if (!clinicEdrpou.val().trim().length > 0 &&
+            !clinicAddress.val().trim().length > 0 &&
+            !clinicName.val().trim().length > 0) {
+            resetClinicCredButtonDeactivate();
+        }
+
+        if(clinicEdrpou.val().trim() !== "07112650") { isLinaStomCredentialsSetUp = false; }
+    });
+
+    function checkIfClinicCredentialsAreSetToLinaStom() {
+        //debugger;
+        if(clinicName.val() === "LinaStom ГАЦ М.М." &&
+           clinicAddress.val() === "Іршава, Білецька 14/1" &&
+           clinicEdrpou.val() === "07112650") {
+            isLinaStomCredentialsSetUp = true;
+        }
+    }
+
+    // resetClinicCredentialsButton.on('click', function () {
+    //     resetClinicCredentials();
+    //     resetClinicCredButtonDeactivate();
+    // });
+
+    function setClinicCredentialsToLinaStom() {
+        clinicName.val("LinaStom ГАЦ М.М.");
+        clinicAddress.val("Іршава, Білецька 14/1");
+        clinicEdrpou.val("07112650");
+    }
+
+    function resetClinicCredentials() {
+        clinicName.val("");
+        clinicAddress.val("");
+        clinicEdrpou.val("");
+    }
+
+    lastNameInput.on('keydown', function (e) {
+        if (e.which === 13) {
+
+            if (!spanDropdownLastNames.hasClass("hidden")) {
+                setFields(dropdownLastNames.val());
+                spanDropdownLastNames.addClass("hidden");
+                lastNameInput.trigger('focus');             //OPT in future - focus onto submit button
+            }
+        }
+    });
+
+    lastNameInput.on('keydown', function () {
+        if (tempDataSize === 0) {
+            //debugger;
+            spanDropdownLastNames.addClass("hidden");
+        } else {
+            spanDropdownLastNames.removeClass("hidden");
+        }
+    });
+
+    lastNameInput.on('keyup', function (e) {
+
+        if (e.which === 40) {
+            /*alert("down arr pressed");*/
+            spanDropdownLastNames.removeClass("hidden");
+            dropdownLastNamesNthChild(1).focus();
+        } else
+
+        if(e.which === 27) { /*alert("escape pressed);*/spanDropdownLastNames.addClass("hidden");
+
+        } else
+
+        if (lastNameInput.val().length >= 3) {
+            //debugger;
+            loadNamesakes();
+
+            if (typeof(dataSize) != "undefined") { spanDropdownLastNames.removeClass("hidden"); }
+
+            //if (!isReturned) {spanDropdownLastNames.addClass("hidden");}
+        } else {spanDropdownLastNames.addClass("hidden");}
+
+    });
+
+    dropdownLastNames.on('change', function () {
+        //alert('works');
+                setFields(dropdownLastNames.val());
+    });
+
+
+    function setFields(value) {
+
+        let workCopy = value;
+        let lastName = workCopy.substring(0, workCopy.indexOf(' '));
+        workCopy = workCopy.substring(workCopy.indexOf(' ') + 1);
+
+        lastNameInput.val(lastName);
+
+        let firstName = workCopy.substring(0, workCopy.indexOf(' '));
+        workCopy = workCopy.substring(workCopy.indexOf(' ') + 1);
+
+        firstNameInput.val(firstName);
+
+        let secondName = workCopy.substring(0, workCopy.indexOf(' '));
+        workCopy = workCopy.substring(workCopy.indexOf(' ') + 1);
+
+        secondNameInput.val(secondName);
+
+
+
+        let birthDate = workCopy.substring(0, workCopy.indexOf('['));
+        workCopy = workCopy.substring(workCopy.indexOf('[') + 1);
+
+        let birthYear = birthDate.substring(2, birthDate.indexOf('-'));
+        let fullYear = birthDate.substring(0, birthDate.indexOf('-'));
+        birthDate = birthDate.substring(birthDate.indexOf('-')+1);
+
+        let birthMonth = birthDate.substring(0, birthDate.indexOf('-'));
+        birthDate = birthDate.substring(birthDate.indexOf('-')+1);
+
+        let birthD = birthDate.substring(0, 2);
+
+        let resBirthDate = "" + birthYear + birthMonth + birthD;
+
+
+        birthDay.val("");
+        birthDay.val(resBirthDate);
+
+        if (isNamesakeChoosen) {
+            updateTitleOfPage('Update Card: ' + firstName + ' ' + lastName.toUpperCase() + '(' + fullYear + '-' + birthMonth + '-' + birthD + ')');
+            isNamesakeChoosen = false;
+        }
+
+
+
+        let patientAddress = workCopy.substring(0, workCopy.indexOf(']'));
+        workCopy = workCopy.substring(workCopy.indexOf(']') + 1);
+
+        address.val(patientAddress);
+
+        let currYear = workCopy.substring(0, workCopy.indexOf(' '));
+        workCopy = workCopy.substring(workCopy.indexOf(' ') + 1);
+
+        year.val(currYear);
+
+        let clinicNm = workCopy.substring(0, workCopy.indexOf('['));
+        workCopy = workCopy.substring(workCopy.indexOf('[') + 1);
+
+        clinicName.val(clinicNm);
+
+        let clinicAddr = workCopy.substring(0, workCopy.indexOf(']'));
+        workCopy = workCopy.substring(workCopy.indexOf(']') + 1);
+
+        clinicAddress.val(clinicAddr);
+
+        let clinicEd = workCopy.substring(0, workCopy.indexOf(' '));
+        workCopy = workCopy.substring(workCopy.indexOf(' ') + 1);
+
+        clinicEdrpou.val(clinicEd);
+
+        //debugger;
+        checkIfClinicCredentialsAreSetToLinaStom();  //this step changes bool value isLinaStomCredentialsSetUp to true
+        resetClinicCredButtonActivate();
+
+        let regNumb = workCopy.substring(0, workCopy.indexOf(' '));
+        workCopy = workCopy.substring(workCopy.indexOf(' ') + 1);
+
+        registryNumber.val(regNumb);
+
+        let gend = workCopy.substring(0, workCopy.indexOf(' '));
+        workCopy = workCopy.substring(workCopy.indexOf(' ') + 1);
+
+
+        let genderBool = parseBool(gend);
+
+        if(genderBool) {
+            //alert('genderBool = true');
+            $('#gender-man-true').prop('selected' , 'selected');
+
+        } else {
+            //alert('genderBool = false');
+            $('#gender-woman-false').prop('selected', 'selected');}
+
+
+
+        let patientPhone = workCopy.substring(0, workCopy.indexOf('['));
+        workCopy = workCopy.substring(workCopy.indexOf('[') + 1);
+
+        phone.val(patientPhone);
+
+        let patientDiagnosis = workCopy.substring(0, workCopy.indexOf(']'));
+        workCopy = workCopy.substring(workCopy.indexOf(']') + 1);
+
+        diagnosis.val(patientDiagnosis);
+
+        let patientComplaints = workCopy.substring(0, workCopy.indexOf('['));
+        workCopy = workCopy.substring(workCopy.indexOf('[') + 1);
+
+        complaints.val(patientComplaints);
+
+        let patientTransferred = workCopy.substring(0, workCopy.indexOf(']'));
+        workCopy = workCopy.substring(workCopy.indexOf(']') + 1);
+
+        transferred.val(patientTransferred);
+
+        let patientGrowth = workCopy;
+        growth.val(patientGrowth);
+    }
+
+    function updateTitleOfPage(newTitle) {
+        titleOfPage.text(newTitle);
+    }
+
+    function parseBool(stringBoolean) { return stringBoolean === true || stringBoolean === "true" }
+
+    lastNameInput.focusout(function () {
+            if(!dropdownLastNamesNthChild(1).focus) {
+                spanDropdownLastNames.addClass("hidden");
+            }
+    });
+
+
+    function namesakeChoosen(value) {
+        isNamesakeChoosen = true;
+        //alert('you clicked namesake: ' + value);
+        setFields(value);
+        spanDropdownLastNames.addClass("hidden");
+    }
+
+    $(document).on('keydown', function (e) {
+        if(e.which === 27) {
+            spanDropdownLastNames.addClass("hidden");
+        }
+    });
+
+    $(document).on('keydown', 'select', function (e) {
+
+        if(e.which === 13) {
+                    //alert('enter pressed!!' + this.value);
+            namesakeChoosen(this.value);
+                }
+    });
+
+    function loadNamesakes() {
+        let prefix = lastNameInput.val();
+
+        let prefixes = [];
+        prefixes[0] = prefix;
+
+        if (prefix.length >= 3) {
+            $.ajax({
+                url: "/last",
+                scriptCharset: "utf-8",
+                data: JSON.stringify(prefixes),
+                type: "POST",
+                beforeSend: function(xhr)
+                {
+                    xhr.setRequestHeader("Accept", "application/json; charset=UTF-8");
+                    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+                },
+                success: function(result)
+                {
+
+                    dropdownLastNames.empty();
+
+                    let data = jQuery.parseJSON(JSON.stringify(result));
+
+                    if (data.size !== 0) {
+                        dropdownLastNames.prop('size', (dataSize=data.size));}
+
+                    else {
+                        dropdownLastNames.prop('size', (dataSize=data.size));
+                        spanDropdownLastNames.addClass("hidden");
+                        return;
+                    }
+
+                    tempDataSize = data.size;
+                    tempData = data.values;
+
+                    if (typeof(data.size) == "undefined") { isReturned = false; return;}
+                    if (data.size === 0) { isReturned = false; return;}
+                    //if (data.size < 1) { isReturned = false; }
+                    //$('#result').text(data);
+                    if (data.size > 0) {
+                        isReturned = true;
+                          //.innerHTML = '';
+
+                        //dropdownLastNames.prop('size', (dataSize=data.size));
+                        dropdownLastNames.append('<option class="namesakes" selected="selected" onclick="namesakeChoosen(this.value)" onmouseover="setFields(this.value)" th:value="' + data.values[0] + '" th:text="' + data.values[0] + '" >' + data.values[0] + '</option>');
+                        if (data.size > 1) {
+                            for (let i = 1; i < data.size; i++) {
+                                dropdownLastNames.append('<option class="namesakes" onclick="namesakeChoosen(this.value)" onmouseover="setFields(this.value)" th:value="' + data.values[i] + '" th:text="' + data.values[i] + '" >' + data.values[i] + '</option>');
+                            }
+                        }
+                    }
+                    //alert(dataSize);
+                    //dataSize = dropdownLastNames.size();
+                }
+            });
+        }
+    }
+
+    // function calculate() {
+    //     alert("test");
+    //     let p1 = lastNameInput.val();
+    //     //let p2 = $('input[name="first-name-input"]').value;
+    //     //let op = $('input[name="result"]').value;
+    //
+    //     // $.ajax({url: "/test", //"@Url.Action('name-of-controller' , 'calculate',)",
+    //     //
+    //     //     data: {par1: p1,
+    //     //         par2: p2,
+    //     //     },
+    //     //     success: function () {
+    //     //         //let res = document.getElementById('res');
+    //     //         $('#second-name-input').val('well done');
+    //     //         alert('ok');
+    //     //     },
+    //     //     error: function () {
+    //     //
+    //     //     }
+    //     // });
+    //
+    //
+    //     //friendly test
+    //     var column = p1;
+    //     var filterType = 1;
+    //     var values = [];
+    //     var filter = { "column" : column, "filterType" : filterType, "values": values};
+    //     var filter2 = { "column" : column, "filterType" : filterType, "values": values};
+    //     filter2.column = "test2";
+    //     var filters = new Array();
+    //     filters[0] = filter;
+    //     filters[1] = filter2;
+    //
+    //
+    //     $.ajax({
+    //         url: "/last",
+    //         data: JSON.stringify(filters),
+    //         type: "POST",
+    //         beforeSend: function(xhr)
+    //         {
+    //             xhr.setRequestHeader("Accept", "application/json");
+    //             xhr.setRequestHeader("Content-Type", "application/json");
+    //         },
+    //         success: function(result)
+    //         {
+    //             let data = jQuery.parseJSON(JSON.stringify(result));
+    //
+    //             $('#result').text(data.column);
+    //             alert('success!!!!');
+    //         }
+    //     });
+    //
+    //     //end of friendly test
+    //
+    //
+    //     // jQuery.ajax({
+    //     //     url: "/getCards",
+    //     //     method: 'post',
+    //     //     // headers: {
+    //     //     //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     //     // },
+    //     //     data: {p1},
+    //     //     success: function (result) {
+    //     //         alert('complete');
+    //     //         let data = jQuery.parseJSON(result);
+    //     //
+    //     //         $('#result').text(data);
+    //     //         //$('#result').text("i work as /expected: " + data.variable);//data.result);
+    //     //     }
+    //     // });
+    // }
+</script>
+</html>

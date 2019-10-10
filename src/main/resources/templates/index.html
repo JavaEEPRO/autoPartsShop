@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app>
+
+<head  th:replace="~{fragments/head :: head ( #{label.pages.index.title} )}"></head>
+
+    <body>
+        <nav th:replace="~{fragments/nav :: nav}"></nav>
+
+
+
+
+        <div class="left-bg">
+            <img th:src="@{/resources/img/stell.png}" alt="left background">
+        </div>
+
+        <div class="right-bg">
+            <img th:src="@{/resources/img/stell.png}" alt="left background">
+        </div>
+
+
+
+<!--        <h2>List Of Ads</h2>-->
+
+
+        <!--page controlls-->
+        <div class="pagingcontrolls">
+            <div th:if="${adPage.totalPages != 1}">
+                <table class="pagination">
+                    <tr class="paging-controls-container">
+                        <td th:class="${page == 1} ? disabled">
+                            <a class="pageLink" th:href="@{/ads/(pageSize=${pageSize}, page=1)}" style="text-decoration:none"><button>&laquo;</button></a>
+                        </td>
+                        <td th:class="${page == 1} ? disabled">
+                            <a class="pageLink" th:href="@{/ads/(pageSize=${pageSize}, page=${adPage.number})}" style="text-decoration:none"><button>&larr;</button></a>
+                            <a th:class="pageLink" th:href="@{/ads/(pageSize=${pageSize})}"></a>
+                        </td>
+                            <td th:class="${adPage.number == (page - 1)} ? 'active pointer-disabled'"
+                                th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                                <a class="pageLink" th:href="@{/ads/(pageSize=${pageSize}, page=${page})}" style="text-decoration:none"
+                                   th:text="${page}"  th:class="${adPage.number == (page - 1)} ? 'current disabled'"></a>
+                            </td>
+                        <td th:class="${page == adPage.totalPages} ? disabled">
+                            <a class="pageLink"
+                               th:href="@{/ads/(pageSize=${pageSize}, page=${adPage.number + 2})}" style="text-decoration:none"><button>&rarr;</button></a>
+                        </td>
+                        <td th:class="${page == adPage.totalPages} ? disabled">
+                            <a class="pageLink"
+                               th:href="@{/ads/(pageSize=${pageSize}, page=${adPage.totalPages})}" style="text-decoration:none"><button>&raquo;</button></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        </div>
+
+
+
+
+        <table id="main-list"> <!--border="1"-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th th:text="#{msg.id}" />-->
+<!--                <th th:text="#{msg.name}" />-->
+<!--            </tr>-->
+<!--            </thead>-->
+            <tbody>
+            <tr th:each="ad, iStat : ${adPage.content}"
+                th:style="${iStat.odd}? 'font-weight: bold;'"
+                th:alt-title="${iStat.even}? 'even' : 'odd'"
+                th:class="main-list-row">
+
+
+<!--                <hr class="hr">-->
+
+                <td>
+                    <div th:text="${ad.name}"
+                         th:class="title-name-of-ad"></div>
+                    <a>
+                        <img class="main-ad-photo" th:src="${ad.photos.isEmpty()} ? '/resources/img/default.jpg' : ${(ad.photos.get(0).url).substring(15)}"/>
+                    </a>
+                </td>
+                <!--td th:text="${ad.id}" /-->
+<!--                <td th:text="${ad.name}" />-->
+                <td>
+                    <div th:text="${ad.description}"
+                         th:class="short-description-of-ad"></div>
+                    <div th:text="${ad.body}"
+                         th:class="body-of-ad"></div>
+                </td>
+                <!--td th:text="${ad.expiryDate}" /-->
+                <!--td th:text="${ad.creationDate}" /-->
+<!--                <td th:text="${ad.body}" />-->
+                <!--td th:text="${ad.kind}" /-->
+                <td class="ads-galleries">
+
+                    <div th:if="${ad.photos.isEmpty()}">no gallery is available</div>
+
+                    <div th:if="${!ad.photos.isEmpty() && ad.photos.size() == 1}">
+                        <img th:src="${(ad.photos.get(0).url).substring(15)}"
+                             th:class="standalone-instead-of-gallery">
+                    </div>
+
+                    <div th:if="${!ad.photos.isEmpty() && ad.photos.size() > 1}"
+                         th:class="custom-slider-container">
+                        <input checked type="radio" name="respond" class="desktop">
+                        <article class="slider">
+                            <input th:if="${ad.photos.size() > 0}" checked type="radio" name="slider" th:id="switch + ${(ad.photos.get(0).url).substring(49,85)}">
+                            <input th:if="${ad.photos.size() > 1}" type="radio" name="slider" th:id="switch + ${(ad.photos.get(1).url).substring(49,85)}">
+                            <input th:if="${ad.photos.size() > 2}" type="radio" name="slider" th:id="switch + ${(ad.photos.get(2).url).substring(49,85)}">
+                            <input th:if="${ad.photos.size() > 3}" type="radio" name="slider" th:id="switch + ${(ad.photos.get(3).url).substring(49,85)}">
+                            <input th:if="${ad.photos.size() > 4}" type="radio" name="slider" th:id="switch + ${(ad.photos.get(4).url).substring(49,85)}">
+
+                            <div th:id="slides + ${(ad.photos.get(0).url).substring(49,85)}" class="slides" >
+                                <div class="overflow">
+                                    <div th:id="image + ${ad.photos.get(0).url.substring(49,85)}" >
+                                        <article th:if="${ad.photos.size() > 0}" th:class="article + ${ad.photos.get(0).url.substring(49,85)}"><img th:src="${ad.photos.get(0).url.substring(15)}"></article>
+                                        <article th:if="${ad.photos.size() > 1}" th:class="article + ${ad.photos.get(1).url.substring(49,85)}"><img th:src="${ad.photos.get(1).url.substring(15)}"></article>
+                                        <article th:if="${ad.photos.size() > 2}" th:class="article + ${ad.photos.get(2).url.substring(49,85)}"><img th:src="${ad.photos.get(2).url.substring(15)}"></article>
+                                        <article th:if="${ad.photos.size() > 3}" th:class="article + ${ad.photos.get(3).url.substring(49,85)}"><img th:src="${ad.photos.get(3).url.substring(15)}"></article>
+                                        <article th:if="${ad.photos.size() > 4}" th:class="article + ${ad.photos.get(4).url.substring(49,85)}"><button class="btn btn-primary all-photos">more photos for this article</button></article>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="controls-wrapper">
+
+                                <div th:id="controls + ${(ad.photos.get(0).url).substring(49,85)}" class="controls">
+                                    <label th:if="${ad.photos.size() > 0}" th:for="switch + ${(ad.photos.get(0).url).substring(49,85)}" th:id="control + ${(ad.photos.get(0).url).substring(49,85)}"></label>
+                                    <label th:if="${ad.photos.size() > 1}" th:for="switch + ${(ad.photos.get(1).url).substring(49,85)}" th:id="control + ${(ad.photos.get(1).url).substring(49,85)}"></label>
+                                    <label th:if="${ad.photos.size() > 2}" th:for="switch + ${(ad.photos.get(2).url).substring(49,85)}" th:id="control + ${(ad.photos.get(2).url).substring(49,85)}"></label>
+                                    <label th:if="${ad.photos.size() > 3}" th:for="switch + ${(ad.photos.get(3).url).substring(49,85)}" th:id="control + ${(ad.photos.get(3).url).substring(49,85)}"></label>
+                                    <label th:if="${ad.photos.size() > 4}" th:for="switch + ${(ad.photos.get(4).url).substring(49,85)}" th:id="control + ${(ad.photos.get(4).url).substring(49,85)}"></label>
+                                </div>
+
+                                <div th:if="${ad.photos.size() == 2 }" class="externals-wrapper">
+                                    <label th:if="${ad.photos.size() == 2 }" th:for="switch + ${(ad.photos.get(1).url).substring(49,85)}" th:id="external + ${(ad.photos.get(1).url).substring(49,85)}"></label>
+                                    <label th:if="${ad.photos.size() == 2 }" th:for="switch + ${(ad.photos.get(0).url).substring(49,85)}" th:id="external + ${(ad.photos.get(0).url).substring(49,85)}"></label>
+                                </div>
+
+                            </div>
+                            <div th:id="actives + ${(ad.photos.get(0).url).substring(49,85)}" class="actives">
+                                <label th:if="${ad.photos.size() > 0}" th:for="switch + ${(ad.photos.get(0).url).substring(49,85)}" th:id="active + ${(ad.photos.get(0).url).substring(49,85)}"></label>
+                                <label th:if="${ad.photos.size() > 1}" th:for="switch + ${(ad.photos.get(1).url).substring(49,85)}" th:id="active + ${(ad.photos.get(1).url).substring(49,85)}"></label>
+                                <label th:if="${ad.photos.size() > 2}" th:for="switch + ${(ad.photos.get(2).url).substring(49,85)}" th:id="active + ${(ad.photos.get(2).url).substring(49,85)}"></label>
+                                <label th:if="${ad.photos.size() > 3}" th:for="switch + ${(ad.photos.get(3).url).substring(49,85)}" th:id="active + ${(ad.photos.get(3).url).substring(49,85)}"></label>
+                                <label th:if="${ad.photos.size() > 4}" th:for="switch + ${(ad.photos.get(4).url).substring(49,85)}" th:id="active + ${(ad.photos.get(4).url).substring(49,85)}"></label>
+
+                            </div>
+                        </article>
+                    </div>
+
+                    <div th:replace="~{fragments/scripts :: customSliderScript}"></div>
+
+                    <script th:if="${ad.photos.size() > 1}">
+                        function initClassesForSliderThroughKey(key) {
+
+                            $("#controls" + key + " label:nth-child([[${ad.photos.size()}]])").addClass('move-to-left');
+                            $("#controls" +key + " label:nth-child(2)").addClass('move-to-right');
+                            $("#actives" + key + " label:nth-child(1)").addClass('active-lbl');
+                            $("#image" + key).addClass('slider-animation');
+                            $("#external[[${ad.photos.size()} > 1 ? ${(ad.photos.get(1).url).substring(49,85)}]]").addClass('move-to-left-external');
+                        }
+                        function setExternalControlsTriggersThroughKey(keys) {
+                            $("#external" + keys[0]).removeClass('move-to-right-external');
+                            $("#external" + keys[1]).addClass('move-to-left-external');
+                        }
+                        function invertExternalControlsTriggersThroughKey(keys) {
+                            //alert(keys[0]);
+                            $("#external" + keys[0]).removeClass('move-to-left-external');
+                            $("#external" + keys[1]).addClass('move-to-right-external');
+                        }
+
+                        initClassesForSliderThroughKey("[[${ad.photos.get(0).url.substring(49,85)}]]");
+
+                        $("#switch[[${ad.photos.get(0).url.substring(49,85)}]]").on("change", function () {
+                            if ($(this).prop("checked")) {
+                                resetClassesForSliderThroughKey("[[${ad.photos.get(0).url.substring(49,85)}]]");
+                                $("#controls[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child([[${ad.photos.size()}]])").addClass('move-to-left');
+                                $("#controls[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(2)").addClass('move-to-right');
+                                $("#actives[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(1)").addClass('active-lbl');
+                                $("#image[[${ad.photos.get(0).url.substring(49,85)}]]").addClass('margin-left-0');
+
+                                setExternalControlsTriggersThroughKey(["[[${ad.photos.size()} >= 2 ? ${(ad.photos.get(0).url).substring(49,85)}]]", "[[${ad.photos.size()} > 1 ? ${(ad.photos.get(1).url).substring(49,85)}]]"]);
+                            }
+                        });
+                    </script>
+                    <script th:if="${ad.photos.size() > 1}">
+                            $("#switch[[${ad.photos.get(1).url.substring(49,85)}]]").on("change", function () {
+                                if ($(this).prop("checked")) {
+                                    resetClassesForSliderThroughKey("[[${ad.photos.get(0).url.substring(49,85)}]]");
+                                    $("#controls[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(1)").addClass('move-to-left');
+                                    $("#controls[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(3)").addClass('move-to-right');
+                                    $("#actives[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(2)").addClass('active-lbl');
+                                    $("#image[[${(ad.photos.get(0).url).substring(49,85)}]]").addClass('margin-left-100');
+
+                                    invertExternalControlsTriggersThroughKey(["[[${ad.photos.isEmpty()} ? '' : ${(ad.photos.get(1).url).substring(49,85)}]]" , "[[${ad.photos.isEmpty()} ? '' : ${(ad.photos.get(0).url).substring(49,85)}]]"]);
+                                }
+                            });
+                    </script>
+                    <script th:if="${ad.photos.size() > 2}">
+                            $("#switch[[${ad.photos.get(2).url.substring(49,85)}]]").on("change", function () {
+                                if ($(this).prop("checked")) {
+                                    resetClassesForSliderThroughKey("[[${ad.photos.get(0).url.substring(49,85)}]]");
+                                    $("#controls[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(2)").addClass('move-to-left');
+
+                                    let nth = 4; if ([[${ad.photos.size()}]]===3) {nth=1;}
+
+                                    $("#controls[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(" + nth + ")").addClass('move-to-right');
+                                    $("#actives[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(3)").addClass('active-lbl');
+                                    $("#image[[${(ad.photos.get(0).url).substring(49,85)}]]").addClass('margin-left-200');
+                                }
+                            });
+                    </script>
+                    <script th:if="${ad.photos.size() > 3}">
+                            $("#switch[[${ad.photos.get(3).url.substring(49,85)}]]").on("change", function () {
+                                if ($(this).prop("checked")) {
+                                    resetClassesForSliderThroughKey("[[${ad.photos.get(0).url.substring(49,85)}]]");
+                                    $("#controls[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(3)").addClass('move-to-left');
+
+                                    let nth = 5; if ([[${ad.photos.size()}]]===4) {nth=1;}
+
+                                    $("#controls[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(" + nth + ")").addClass('move-to-right');
+                                    $("#actives[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(4)").addClass('active-lbl');
+                                    $("#image[[${(ad.photos.get(0).url).substring(49,85)}]]").addClass('margin-left-300');
+                                }
+                            });
+                    </script>
+                    <script th:if="${ad.photos.size() > 4}">
+                            $("#switch[[${ad.photos.get(4).url.substring(49,85)}]]").on("change", function () {
+                                if ($(this).prop("checked")) {
+                                    resetClassesForSliderThroughKey("[[${ad.photos.get(0).url.substring(49,85)}]]");
+                                    $("#controls[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(4)").addClass('move-to-left');
+                                    $("#controls[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(1)").addClass('move-to-right');
+                                    $("#actives[[${(ad.photos.get(0).url).substring(49,85)}]] label:nth-child(5)").addClass('active-lbl');
+                                    $("#image[[${(ad.photos.get(0).url).substring(49,85)}]]").addClass('margin-left-400');
+                                }
+                            });
+                    </script>
+                </td>
+
+                <td>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+
+        <script>
+            $(document).ready(function(){
+                $('.main-ad-photo').zoom();
+            });
+
+            // // Using Colorbox with Zoom
+            // $(document).ready(function(){
+            //     $('a.photo').zoom({
+            //         url: '/resources/img/default.jpg',
+            //         callback: function(){
+            //             $(this).colorbox({href: this.src});
+            //         }
+            //     });
+            // });
+
+            $(document).ready(function(){
+                $('.main-ad-photo')
+                    .wrap('<span style="display:inline-block"></span>')
+                    .css('display', 'block')
+                    .parent()
+                    .zoom();
+            });
+
+            // $('.main-ad-photo').loupe({
+            //     width: 200, // width of magnifier
+            //     height: 150 // height of magnifier
+            //     //loupe: 'loupe' // css class for magnifier
+            // });
+        </script>
+
+    </body>
+
+
+
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+<script th:src="@{/resources/js/uploader.js}"></script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--angularJS test section-->
+
+<form>
+    <label>Name:</label>
+    <input type="text"  ng-model="name" placeholder="type name...">
+    <br>
+    <br>
+    <label>Phone:</label>
+    <input type="text"  ng-model="phone" placeholder="type phone...">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="drop-area">
+        <div class="my-form">
+
+            <p class="drop-area-title">Load images using the file selection dialog or dragging the desired images into the selected area</p>
+            <input type="file" ng-model="ava" id="fileElem" accept="image/*" onchange="handleFiles(this.files)">
+            <div class="container clear-drop-zone">
+                <div class="row">
+                    <label id="choose-drop-zone-btn" class="btn btn-block btn-primary col-sm-10" for="fileElem">Select Ava</label>
+                    <label id="clear-drop-zone-btn" class="btn btn-block btn-outline-danger col-sm-2">
+                        <i class="fas fa-recycle customized-recycle"></i>
+                        <i class="fas fa-trash customized-bin"></i>
+                        <i class="fas fa-broom customized-broom"></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <progress id="progress-bar" class="progress-bar" max=100 value=0><span>progress</span><span id="span-progressive-1">100%</span></progress>
+        <div id="gallery"></div>
+    </div>
+
+</form>
+
+<h1>Добро пожаловать {{name}}!</h1>
+<!--end of angularJS test section-->

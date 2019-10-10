@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head  th:replace="~{fragments/alternativeHead :: alternativeHead(СТВОРИТИ НОВУ МЕДИЧНУ КАРТУ АМБУЛАТОРНОГО ХВОРОГО)}"></head>
+
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container" id="newad-form-container">
+    <div >
+
+
+        <style>
+            #clinic-address-input {
+                /*opacity: 0.8;*/
+                transform: translateX(5.4em) translateY(-1em) scale(0.8);
+                /*min-width: 20em !important;*/
+            }
+            #clinic-name-input {
+                transform: translateX(9em) translateY(-1em) scale(0.8);
+
+            }
+
+            #edrpou-no-input {
+                opacity: 0.93;
+                transform: translateX(6.6em) translateY(-1.4em) scale(0.53);
+                text-align: center;
+                color: #0e0e0e;
+                letter-spacing: 1.33em;
+                text-overflow: clip;
+
+            }
+
+
+
+            #reg-no-input {
+                transform: translateX(45.8em) translateY(-2.5em) scale(0.8);
+            }
+
+            #year-input {
+                transform: translateX(47.3em) translateY(-3.92em) scale(0.58);
+                text-align: center;
+            }
+            #last-name-input {
+                transform: translateX(10.1em) translateY(-7.33em) scale(0.67);
+            }
+            #first-name-input {
+                transform: translateX(24.95em) translateY(-10.73em) scale(0.67);
+            }
+
+            #second-name-input {
+                transform: translateX(39.8em) translateY(-14.07em) scale(0.67);
+            }
+            #gender-select {
+                transform: translateX(13.8em) translateY(-15.5em) scale(0.55) scaleX(0.63);
+            }
+            #birth-day-input {
+                opacity: 0.93;
+                transform: translateX(42.87em) translateY(-19em) scale(0.72);
+                text-align: center;
+                color: #0e0e0e;
+                letter-spacing: 1.22em;
+                text-overflow: clip;
+                width: 11.6em;
+                /*font-size: small;*/
+            }
+
+            .patient-creation-form {
+                background-color: #FFFF99;
+            }
+            #address-input {
+                transform: translateX(15.63em) translateY(-20.53em) scale(0.67);
+            }
+            #phone-input {
+                transform: translateX(31.4em) translateY(-23.89em) scale(0.67);
+            }
+            #diagnosis-input {
+                transform: translateX(1.2em) translateY(-25.89em) scale(0.56);
+            }
+            #complaints-input {
+                transform: translateX(-0.4em) translateY(-26.6em) scale(0.54);
+            }
+            #transferred-input {
+                transform: translateX(9.6em) translateY(-24.97em) scale(0.462);
+            }
+            #growth-input {
+                transform: translateX(10.7em) translateY(-24.57em) scale(0.5);
+            }
+
+        </style>
+
+
+        <br/>
+        <!--        <h1 class=" create-ad-titleform" th:text="#{label.createad.titleform}">Create New Ad</h1>-->
+        <!--        <i class="fas fa-copy"></i>-->
+        <br/>
+        <form action="/patient/new" method="POST" enctype="utf8" >
+
+            <span><img th:id="imgAmbul" th:src="@{/resources/img/ambul.jpg}"></span>
+
+            <br/>
+            <br/>
+            <br/>
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-2"><input id="clinic-name-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="clinic name" name="firstName" value="" required="required"/></span>
+                <span id="nameOfClinicError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-3"><input id="clinic-address-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="clinic address" name="firstName" value="" required="required"/></span>
+                <span id="addressOfClinicError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+
+
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-sm-3"><input maxlength="8" id="edrpou-no-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="#USREOU#" name="firstName" value="" required="required"/></span>
+                <span id="edrpouNumberError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+
+            <!--            <div class="form-group row edrpou-group" >-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou1" value="" required="required"/></span>-->
+            <!--&lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou2" value="" required="required"/></span>-->
+            <!--&lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou3" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou4" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou5" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou6" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou7" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>&ndash;&gt;-->
+            <!--                <span class="col-sm-1"><input maxlength="1" class="form-control form-control-createAd-custom edrpou-inputs" placeholder="" name="edrpou8" value="" required="required"/></span>-->
+            <!--                &lt;!&ndash;                <span id="" class="alert alert-danger col-sm-4" style="display:none"></span>&ndash;&gt;-->
+
+            <!--            </div>-->
+
+
+
+
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-sm-2"><input id="reg-no-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="registry number" name="firstName" value="" required="required"/></span>
+                <span id="registryNumberError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-sm-2"><input id="year-input" class="form-control form-control-createAd-custom patient-creation-form" th:placeholder="${patient.getYear()}" name="year" th:value="${patient.getYear()}" required="required"/></span>
+                <span id="yearError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+            <br/>
+            <br/>
+
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-sm-4"><input id="last-name-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="last name" name="lastName" value="" required="required"/></span>
+                <span id="lastNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-sm-4"><input id="first-name-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="first name" name="firstName" value="" required="required"/></span>
+                <span id="firstNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+            <div class="form-group row" >
+
+                <!--                <label class="col-sm-3 newad-label custom-red" th:text="#{label.createad.name}" >Title Of Ad</label>-->
+                <span class="col-sm-4"><input id="second-name-input" class="form-control form-control-createAd-custom patient-creation-form" placeholder="second name" name="secondName" value="" required="required"/></span>
+                <span id="secondNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label orange" th:text="#{label.createad.kind}">Kind Of Ad</label>-->
+                <span class="col-sm-1">
+                            <select id="gender-select" class="dropdown form-control form-control-createAd-custom patient-creation-form" th:name="gender">
+                                <option class="" th:value="true" th:text="1" >man</option>
+                                <option class="" th:value="false" th:text="2" >woman</option>
+                            </select>
+
+                        </span>
+                <span id="genderError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label green" th:text="#{label.createad.categories}">Categories Of Ad</label>-->
+                <span class="col-sm-3"><input id="birth-day-input" maxlength="6" class="form-control form-control-createAd-custom patient-creation-form" name="birthDay" placeholder="ddMMyy" value="" required="required"/></span>
+                <span id="birthDateError" class="alert alert-danger col-sm-4" style="display:none"></span>
+
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label blue" th:text="#{label.createad.description}">Description Of Ad</label>-->
+                <span class="col-sm-4"><input id="address-input" class="form-control form-control-createAd-custom patient-creation-form" name="address" placeholder="patient address" value="" required="required"/></span>
+                <span id="patientAddressError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label violet" th:text="#{label.createad.body}">Body Of Ad</label>-->
+                <span class="col-sm-3"><input id="phone-input" class="form-control form-control-createAd-custom patient-creation-form" name="phone" placeholder="phone" value="" required="required"/></span>
+                <span id="phoneError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label violet" th:text="#{label.createad.body}">Body Of Ad</label>-->
+                <span class="col-sm-4"><input id="diagnosis-input" class="form-control form-control-createAd-custom patient-creation-form" name="diagnosis" placeholder="diagnosis" value="" required="required"/></span>
+                <span id="diagnosisError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label violet" th:text="#{label.createad.body}">Body Of Ad</label>-->
+                <span class="col-sm-5"><input id="complaints-input" class="form-control form-control-createAd-custom patient-creation-form" name="complaints" placeholder="complaints" value="" required="required"/></span>
+                <span id="complaintsError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label violet" th:text="#{label.createad.body}">Body Of Ad</label>-->
+                <span class="col-sm-5"><input id="transferred-input" class="form-control form-control-createAd-custom patient-creation-form" name="transferredAndConcomitantDiseases" placeholder="transferred and concomitant diseases" value="" required="required"/></span>
+                <span id="transferredError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <div class="form-group row">
+                <!--                <label class="col-sm-3 newad-label violet" th:text="#{label.createad.body}">Body Of Ad</label>-->
+                <span class="col-sm-5"><input id="growth-input" class="form-control form-control-createAd-custom patient-creation-form" name="growthOfPresentDisease" placeholder="growth of present disease" value="" required="required"/></span>
+                <span id="growthError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <!--div class="form-group row">
+                <label class="col-sm-3" th:text="#{label.user.2fa}">Use Two Step Verification</label>
+                <span class="col-sm-5"><input type="checkbox" name="using2FA" value="true"/></span>
+            </div-->
+
+
+            <!--br/-->
+            <div class="container newAd-controls">
+
+                <button type="submit" id="post-new-ad-button" class="btn btn-primary" text="Persist Changes">Persist Changes</button>
+
+
+                <!--                <div id="drop-area">-->
+                <!--                    <form class="my-form">-->
+
+                <!--                        <p class="drop-area-title" th:text="#{label.upoadHtml5.dr-n-drop}">Load images using the file selection dialog or dragging the desired images into the selected area</p>-->
+                <!--                        <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">-->
+                <!--                        <div class="container clear-drop-zone">-->
+                <!--                            <div class="row">-->
+                <!--                                <label id="choose-drop-zone-btn" class="btn btn-block btn-primary col-sm-10" for="fileElem" th:text="#{label.button.uploadHtml5.chooseImages}">Select images</label>-->
+                <!--                                <label id="clear-drop-zone-btn" class="btn btn-block btn-outline-danger col-sm-2">-->
+                <!--                                    <i class="fas fa-recycle customized-recycle"></i>-->
+                <!--                                    <i class="fas fa-trash customized-bin"></i>-->
+                <!--                                    <i class="fas fa-broom customized-broom"></i>-->
+                <!--                                </label>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </form>-->
+                <!--                    <progress id="progress-bar" class="progress-bar" max=100 value=0><span>progress</span><span id="span-progressive-1">100%</span></progress>-->
+                <!--                    <div id="gallery"></div>-->
+                <!--                </div>-->
+
+                <!--                <a id="multiple-ads-button" class="btn btn-outline-light" th:href="@{#}" th:text="#{label.button.persistAd.multipleAds}">Load Multiple Ads</a>-->
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+</body>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+<div th:replace="~{fragments/scripts :: imagesUploaderScript}"></div>
+</html>
