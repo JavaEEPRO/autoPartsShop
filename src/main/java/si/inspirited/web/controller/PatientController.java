@@ -341,7 +341,7 @@ public class PatientController {
     @ResponseBody
     public String getOnPrefixResponse(@RequestBody String[] prefixes)     //ColumnFilter[] filters)
     {
-        var prefix = prefixes[0];
+        String prefix = prefixes[0];
 
         System.out.println(prefix);
         List<Patient> patients = patientService.findAllByLastNameStartsWithOrderByLastName(prefix);
