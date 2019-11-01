@@ -66,7 +66,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         createUserIfNotFound("test@test.com", "Test", "Test", "test", new ArrayList<Role>(Arrays.asList(adminRole)));
 
             // == create main guest user account for tests and persisting guest' ads
-            createUserIfNotFound("j2eengineer@gmail.com","DreamHacker", "Administrators", "1Qq_2Ww3", new ArrayList<Role>(Arrays.asList(adminRole, userRole)));
+            createUserIfNotFound("j2eengineer@gmail.com","DreamHacker", "Administrators", "1111", new ArrayList<Role>(Arrays.asList(adminRole, userRole)));
 
         // == create initial kinds
         createKindIfNotFound("goods");
