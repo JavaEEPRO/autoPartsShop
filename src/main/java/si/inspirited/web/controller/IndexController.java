@@ -9,7 +9,7 @@ public class IndexController {
 
     //@RequestMapping("index")
     public ModelAndView index() {
-        String param = "Viktorichka Shtoda(Karaslay) my beloved";
+        String param = "beloved";
         ModelAndView model = new ModelAndView("index");
         model.addObject("message", param);
         return model;
@@ -17,7 +17,7 @@ public class IndexController {
 
     @RequestMapping("i")
     public ModelAndView i() {
-        String param = "Viktorichka Shtoda(Karaslay) my beloved";
+        String param = "beloved";
         ModelAndView model = new ModelAndView("pindex");
         model.addObject("message", param);
 
